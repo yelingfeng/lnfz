@@ -1,0 +1,11 @@
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+.gitignore
+.happypack/
+.idea/
+dist/
+node_modules/
+static/
