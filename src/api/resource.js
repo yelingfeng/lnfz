@@ -27,7 +27,7 @@ const isProd = process.env.NODE_ENV === 'production'
 
 let mapUrl = API_ROOT + "getMapData";
 let engineUrl = API_ROOT +"getEnginePhone";
-let stopUrl = API_ROOT + "getStopData";
+let stopUrl = API_ROOT + "getStopPhone";
 
 // 地图
 export const getMapDataList = (options) => isProd ? Vue.http.post(mapUrl,options) : Vue.http.get(mapUrl);

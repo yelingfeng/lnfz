@@ -63,7 +63,7 @@ app.get("/getMapData" , function(req, res){
 })
 
 
-app.get("/getStopData" , function(req, res){
+app.get("/getStopPhone" , function(req, res){
     res.send({
         "result" :[{"number":"000860453622213","time":"2016-09-08 13:30:45"}]
     });
