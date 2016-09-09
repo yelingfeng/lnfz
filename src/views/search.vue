@@ -31,6 +31,12 @@
 <script>
 export default  {
     name :"search",
+    data(){
+        return {
+            sT : "",
+            eT : ""
+        }
+    },
     computed:{
         dstartTime(){
             return this.$store.getters.getStartTime
@@ -41,20 +47,18 @@ export default  {
     },
     methods:{
         searchClick(){
-            layer.open({
-                content:"123"
-            })
         },
         // 点击查询
         searchAction(){
-           var obj = {
-               s : this.dstartTime,
-               e : this.dendTime
-           }
-            console.log(obj)
+
+           this.$store.dispatch("SEARCH_ACTION",{
+               s : this.sT,
+               e : this.eT
+           })
         }
     },
     mounted(){
+        let me = this;
         $('#beginTime').fdatepicker({
             format: 'yyyy-mm-dd hh:ii',
             language:"zh-CN",
@@ -62,7 +66,8 @@ export default  {
             initialDate:this.dstartTime,
             pickTime: true
         }).on('hide', function (ev) {
-            //let time = $(this).val();
+            let time = $(this).val();
+            me.sT = time;
         })
 
         $('#endTime').fdatepicker({
@@ -72,8 +77,12 @@ export default  {
             disableDblClickSelection: true,
             pickTime: true
         }).on('hide', function (ev) {
-            //let time = $(this).val();
+            let time = $(this).val();
+            me.eT = time;
         })
+
+         me.sT = this.dstartTime;
+         me.eT = this.dendTime
 
     }
 }

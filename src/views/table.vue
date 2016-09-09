@@ -2,17 +2,18 @@
  * Created by yelingfeng on 2016/9/6.
  */
 <template>
-    <div class="atable" :style="style">
+    <div class="atable" :style="style" >
         <div class="box_title" ><span></span>{{title}}</div>
         <div class="monitor box_border_box" >
             <div class="monitor-inner" >
-                <table class="table table-condensed" id="wsHotTable">
+                <table class="table table-condensed">
                     <thead>
                     </thead>
                     <tbody>
-                        <tr v-for="item in datas">
-                            <td>{{item.number}}</td>
-                            <td>{{item.time}}</td>
+                        <tr v-for="(item,index) in datas">
+                            <td width="25px"><i>{{index+1}}</i></td>
+                            <td width="50%" style="text-align:left;">{{item.number}}</td>
+                            <td width="150px" style="text-align:center;">{{item.time}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -32,6 +33,162 @@
 export default {
     name : "table",
     props:['title',"style","datas","isTop"],
+    updated(){
+        this.tableInit()
+    },
+    methods:{
+        tableInit(){
+
+            this.speedNum = 2000;
+            this.wapperBox = $(".monitor-inner",this.$el);
+            this.innerTable = $(".table-condensed",this.$el);
+
+            if(this.innerTable.height() > this.wapperBox.height()){
+                if(!this.isStart){
+                    this._preprocess();
+                    this.isStart = true;
+                }
+                // run
+                this.startRun();
+            }
+        },
+        _preprocess(){
+            let $table =  this.innerTable;
+            $table.wrap('<div style="height: 100%; overflow: hidden; position: relative;margin-left: 5px;"></div>');
+            var $thead = $table.find("thead");
+            var thHeight = $thead.height();
+
+            let $sticky = $('<table class="' + $table.attr('class') + '" style="position: absolute; top: 0;"></table>');
+            $sticky.append($thead.clone());
+            $sticky.hide();
+            $table.parent().append($sticky);
+
+            let width = $table.width();
+
+            // 原始table第二层wrapper
+            $table.wrap('<div style="overflow: hidden; margin-top: 10px;"></div>');
+            $table.css('margin-top', "-" + thHeight+'px');
+
+            this.setContentSize();
+        },
+
+        setContentSize(){
+            var width = this.innerTable.width();
+            var trs = this.innerTable.find('tr');
+            trs.each(function(){
+                var tds = $(this).children();
+                var w1 = 20;
+                var w3 =150;
+                var w2 = width - w1 - w3 -10;
+                tds.eq(0).width(w1);
+                tds.eq(2).width(w3);
+                tds.eq(1).width(w2);
+            })
+        },
+
+        startRun(){
+            this.starting = true;
+
+            var $tbody = this.innerTable.find("tbody");
+            var table = this.innerTable.get(0);
+            var me = this;
+
+            this.timer = setInterval(function(){
+                var $first = $tbody.children().first();
+                var h = $first.get(0).offsetHeight;
+                me.moveAnim(table, 0, 0, 0, -h, {
+                    isClear: true,
+                    afterAnim: function(){
+                        $tbody.append($first);
+                    }
+                });
+            }, this.speedNum);
+        },
+
+        stopRun(){
+            this.starting = false;
+            clearInterval(this.timer);
+            this.timer = null;
+        },
+
+        /* 移动动画
+         @param el {HTMLElement}
+         @param x1 {number}
+         @param y1 {number}
+         @param x2 {number}
+         @param y2 {number}
+         @param config {Object}
+         @param duration {number}
+         @param ease {string}
+         @param isShowEl {boolean} 动画结束后是否继续显示元素
+         @param isClear {boolean} 动画结束后是否清除动画属性
+         @param beforeAnim {Function}
+         @param afterAnim {Function}
+         */
+        moveAnim(el, x1, y1, x2, y2, config) {
+            let me = this;
+            if(!el){
+                return;
+            }
+            if(!el.tagName && el.length){
+                // jquery节点
+                el = el[0];
+            }
+
+            let style = el.style;
+            config = $.extend({
+                duration: 400,
+                ease: 'ease',
+                isShowEl: true,
+                isClear: false
+            }, config);
+
+            style.display = 'block';
+            style.transform = 'translate3d(' + x1 + 'px, ' + y1 + 'px, 0px)';
+            style.transitionDuration = '0ms';
+            style.webkitTransform = 'translate3d(' + x1 + 'px, ' + y1 + 'px, 0px)';
+            style.webkitTransitionDuration = '0ms';
+
+            // before animation
+            config.beforeAnim && config.beforeAnim();
+            setTimeout(function() {
+                style.transform = 'translate3d(' + x2 + 'px, ' + y2 + 'px, 0px)';
+                style.transitionDuration = config.duration + 'ms';
+                style.transitionTimingFunction = config.ease;
+                style.webkitTransform = 'translate3d(' + x2 + 'px, ' + y2 + 'px, 0px)';
+                style.webkitTransitionDuration = config.duration + 'ms';
+                style.webkitTransitionTimingFunction = config.ease;
+                // 下面不会有第二次setTimeout
+                if(config.isShowEl && !config.isClear){
+                    // after animation
+                    config.afterAnim && config.afterAnim();
+                }
+            }, 0);
+
+            // 动画结束后不显示元素
+            if(!config.isShowEl){
+                style.display = 'none';
+            }
+            // 清空动画属性（下次show时显示在最初的位置）
+            if(!config.isShowEl || config.isClear){
+                setTimeout(function() {
+                    me._clearTransform(el);
+                    // after animation
+                    config.afterAnim && config.afterAnim();
+                }, config.duration + 10);
+            }
+        },
+
+        _clearTransform(el){
+            var style = el.style;
+            style.transform = null;
+            style.transitionDuration = null;
+            style.transitionTimingFunction = null;
+            style.webkitTransform = null;
+            style.webkitTransitionDuration = null;
+            style.webkitTransitionTimingFunction = null;
+        }
+    }
 }
 </script>
 <style scoped>
@@ -57,12 +214,11 @@ export default {
     }
     .monitor table{
         width: 100%;
-        height: 280px;
         table-layout: fixed;
     }
     .monitor-inner{
         width:100%;
-        height: 280px;
+        height: 160px;
         overflow: hidden;
     }
     .monitor-status{
@@ -194,6 +350,19 @@ export default {
         border-collapse: collapse;
         border-spacing: 0;
         color:#e5e5e5;
+        margin: 5px;
+    }
+
+    tbody tr td i{
+        display:block;
+        width:20px;
+        height:20px;
+        background:#005687;
+        font-style:normal;
+        text-align:center;
+    }
+    tbody tr:first-child td i{
+        background:#ef732b;
     }
 
     .table td a img{
@@ -204,8 +373,8 @@ export default {
     .table td {
         border-top:none;
         padding: 8px;
-        font-size: 14px;
-        line-height: 32px;
+        font-size: 12px;
+        line-height:22px;
         text-align: center;
         vertical-align: top;
         overflow-x:hidden;

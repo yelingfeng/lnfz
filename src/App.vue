@@ -57,7 +57,7 @@
             this.centerStyle.width = ww +"px";
             this.centerStyle.height = wh +"px";
 
-            let tableH = ((wanth / 2) - 50)  +"px";
+            let tableH = ((wanth * 0.33) - 50)  +"px";
             let tableW = (ww - wantw)  +"px" ;
             let tableSize = {
                 width : tableW ,
@@ -124,6 +124,9 @@
     beforeMount (){
         this.$store.dispatch('INIT_RESOURCE')
         this.resizeWin()
+        if(process.env.NODE_ENV === 'production'){
+            $("body").css("background","transparent")
+        }
     },
     mounted(){
           var me = this;

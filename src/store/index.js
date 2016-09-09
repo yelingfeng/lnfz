@@ -51,6 +51,12 @@ const store = new Vuex.Store({
             })
 
         },
+
+        SEARCH_ACTION:({commit,dispatch,state},payload) =>{
+            commit('UPDATE_SEARCH_PARAM',payload);
+            dispatch('INIT_RESOURCE')
+        },
+
         RESIZE_MAP:({commit,state},{w,h}) =>{
             commit('RESIZE_MAP',{w,h})
         },
@@ -58,10 +64,6 @@ const store = new Vuex.Store({
             commit('RESIZE_TABLE',{size})
         },
 
-        GET_MAP_DATA:({commit , dispatch, state}) =>{
-
-
-        }
     },
     mutations: {
         // 初始化map
@@ -77,6 +79,12 @@ const store = new Vuex.Store({
             state.stopData = data;
         },
 
+        // 更新searchkey
+        UPDATE_SEARCH_PARAM:(state, payload)=>{
+            state.startTime = payload.s;
+            state.endTime = payload.e;
+        },
+
         RESIZE_MAP:(state , { w, h})=> {
             state.mapH = h ;
             state.mapW = w ;
@@ -85,10 +93,10 @@ const store = new Vuex.Store({
 
             let sizeT = Object.assign({},size) ;
             let sizeB = Object.assign({},size) ;
-            sizeT.top = "20px";
+            sizeT.top = "10%";
             sizeT.right = "20px";
 
-            sizeB.bottom = "20px";
+            sizeB.bottom = "20%";
             sizeB.right = "20px";
 
             state.tableSizeTop = sizeT ;

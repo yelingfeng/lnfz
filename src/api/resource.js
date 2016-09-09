@@ -10,19 +10,6 @@ Vue.use(VueResource);
 Vue.http.options.crossOrigin = true;
 //Vue.http.options.xhr = {withCredentials: true}
 
-
-Vue.http.interceptors.push({
-    request (request) {
-        return request
-    },
-    response (response) {
-        if(response.status === 500){
-            console.log("服务器加载失败")
-        }
-        return response
-    }
-});
-
 const isProd = process.env.NODE_ENV === 'production'
 
 let mapUrl = API_ROOT + "getMapData";
