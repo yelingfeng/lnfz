@@ -16,6 +16,14 @@ export default  {
             return this.$store.getters.getMapSize;
         }
     },
+    watch:{
+        mapData:{
+            deep:true,
+            handler(val,oldval){
+                this.lnMap.render(this.mapData)
+            }
+        }
+    },
     mounted(){
         this.lnMap = new Map({
             el : document.querySelector("#mapLN"),
@@ -26,7 +34,6 @@ export default  {
                 }
             }
         });
-        this.lnMap.render(this.mapData)
     }
 }
 </script>

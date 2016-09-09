@@ -26,21 +26,17 @@
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 <script>
-import moment from "moment"
-import 'moment/locale/zh-cn';
-
-
-
 export default  {
     name :"search",
-    data(){
-        return {
-            dstartTime :"",
-            dendTime :""
+    computed:{
+        dstartTime(){
+            return this.$store.getters.getStartTime
+        },
+        dendTime(){
+            return this.$store.getters.getEndTime
         }
     },
     methods:{
@@ -59,17 +55,11 @@ export default  {
         }
     },
     mounted(){
-
-        const fmt = "YYYY-MM-DD hh:mm:ss";
-        let now = moment(new Date()).format(fmt)
-        let last = moment(now).add(-1,"d").format(fmt)
-
-
         $('#beginTime').fdatepicker({
             format: 'yyyy-mm-dd hh:ii',
             language:"zh-CN",
             disableDblClickSelection: true,
-            initialDate:last,
+            initialDate:this.dstartTime,
             pickTime: true
         }).on('hide', function (ev) {
             //let time = $(this).val();
@@ -78,7 +68,7 @@ export default  {
         $('#endTime').fdatepicker({
             format: 'yyyy-mm-dd hh:ii',
             language:"zh-CN",
-            initialDate:now,
+            initialDate:this.dendTime,
             disableDblClickSelection: true,
             pickTime: true
         }).on('hide', function (ev) {

@@ -23,47 +23,15 @@ Vue.http.interceptors.push({
     }
 });
 
+const isProd = process.env.NODE_ENV === 'production'
 
-const mapData = [
-    {name: "沈阳市", value:"100" ,category:"辽宁","subArray":[{"type":"1","num":"234","id":"1" },{"type":"2","num":"64","id":"2"}]},
-    {name: "大连市", value:"20" ,category:"辽宁",info:"5555"},
-    {name: "铁岭市", value:"30" ,category:"辽宁",info:"gfdgdfgdfg"},
-    {name: "鞍山市", value:"50" ,category:"辽宁",info:"dfgdfg"},
-    {name: "锦州市", value:"70" ,category:"辽宁",info:"gfhgfhfghgf"},
-    {name: "葫芦岛市", value:"40" ,category:"辽宁","subArray":[{"type":"1","num":"44","id":"1" },{"type":"2","num":"33","id":"2"}]},
-    {name: "阜新市", value:"10" ,category:"辽宁",info:"sssss"},
-]
+let mapUrl = API_ROOT + "getMapData";
+let engineUrl = API_ROOT +"getEnginePhone";
+let stopUrl = API_ROOT + "getStopData";
 
-
-const tableData1 = [
-    { "number":"13844442222","time":"2016-08-09" },
-    { "number":"13844442223","time":"2016-08-09" },
-    { "number":"13844442224","time":"2016-08-09" },
-    { "number":"13844442225","time":"2016-08-09" },
-    { "number":"13844442226","time":"2016-08-09" },
-    { "number":"13844442226","time":"2016-08-09" },
-    { "number":"13844442226","time":"2016-08-09" },
-    { "number":"13844442226","time":"2016-08-09" },
-    { "number":"13844442226","time":"2016-08-09" },
-    { "number":"13844442226","time":"2016-08-09" },
-    { "number":"13844442227","time":"2016-08-09" }
-]
-
-const tableData2 = [
-    { "number":"13944442222","time":"2016-09-09" },
-    { "number":"13944442223","time":"2016-09-09" },
-    { "number":"13944442224","time":"2016-09-09" },
-    { "number":"13944442225","time":"2016-09-09" },
-    { "number":"13944442226","time":"2016-09-09" },
-    { "number":"13944442227","time":"2016-09-09" }
-]
-
-const tu = process.env.NODE_ENV === 'production' ? "evilDetail/findEvilDetailList?evilType=1" : "src/api/test.json";
-const getEvilDetailList = (options) => Vue.http.get(API_ROOT + tu,options);
-
-export default {
-    getEvilDetailList,
-    mapData,
-    tableData1,
-    tableData2
-}
+// 地图
+export const getMapDataList = (options) => isProd ? Vue.http.post(mapUrl,options) : Vue.http.get(mapUrl);
+// 已检出
+export const getEnginePhoneList =(options) =>isProd ? Vue.http.post(engineUrl,options) : Vue.http.get(engineUrl);
+// 已停封
+export const getStopPhoneList = (options) =>isProd ? Vue.http.post(stopUrl,options) : Vue.http.get(stopUrl);

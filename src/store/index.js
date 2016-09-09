@@ -3,19 +3,27 @@
  */
 import Vue from 'vue'
 import Vuex from 'vuex'
-import Api from "../api/resource"
+import API from "../api"
 import createLogger from 'vuex/logger'
-
+import moment from "moment"
+import 'moment/locale/zh-cn';
 Vue.use(Vuex)
+const isProd = process.env.NODE_ENV === 'production'
+let plugins = isProd ? [] : [createLogger];
 
-let plugins = process.env.NODE_ENV == 'development' ? [createLogger] : [];
+const fmt = "YYYY-MM-DD hh:mm:ss";
+let now = moment(new Date()).format(fmt)
+let last = moment(now).add(-1,"d").format(fmt)
+
 
 const store = new Vuex.Store({
     plugins: plugins,
     state: {
-        chartData:{
-           map : []
-        },
+        mapData:[],
+        engineData:[],
+        stopData:[],
+        startTime : last,
+        endTime : now,
         mapW : '0',
         mapH : '0',
         tableSizeTop : {
@@ -25,8 +33,23 @@ const store = new Vuex.Store({
         }
     },
     actions: {
-        INIT_CHART_LIST:({commit , dispatch,state}) => {
-            commit("INIT_CHART_LIST")
+        // 初始化资源
+        INIT_RESOURCE:({commit , dispatch,state}) => {
+
+            let param = {
+                startTime : state.startTime,
+                endTime : state.endTime,
+            }
+            API.getMapDataList(param).then((resp)=>{
+                commit('INIT_MAP',isProd ? resp.result : resp.data.result)
+            })
+            API.getEnginePhoneList(param).then((resp)=>{
+                commit('INIT_ENGINE',isProd ? resp.result : resp.data.result)
+            })
+            API.getStopPhoneList(param).then((resp)=>{
+                commit('INIT_STOP',isProd ? resp.result : resp.data.result)
+            })
+
         },
         RESIZE_MAP:({commit,state},{w,h}) =>{
             commit('RESIZE_MAP',{w,h})
@@ -35,18 +58,25 @@ const store = new Vuex.Store({
             commit('RESIZE_TABLE',{size})
         },
 
-        GET_LIST:({commit , dispatch, state}) =>{
-            Api.getEvilDetailList().then((resp)=>{
-                console.dir(resp.result)
-            })
+        GET_MAP_DATA:({commit , dispatch, state}) =>{
+
+
         }
     },
     mutations: {
-        INIT_CHART_LIST:(state ) => {
-            state.chartData.map = Api.mapData;
-            state.tableData1 = Api.tableData1;
-            state.tableData2 = Api.tableData2;
+        // 初始化map
+        INIT_MAP:(state,mapData ) => {
+            state.mapData = mapData
         },
+        // 初始化已检出
+        INIT_ENGINE:(state, data) =>{
+           state.engineData = data;
+        },
+        // 初始化已停封
+        INIT_STOP :(state , data) =>{
+            state.stopData = data;
+        },
+
         RESIZE_MAP:(state , { w, h})=> {
             state.mapH = h ;
             state.mapW = w ;
@@ -67,7 +97,7 @@ const store = new Vuex.Store({
     },
     getters: {
         getMapData(state){
-            return state.chartData.map;
+            return state.mapData;
         },
         getMapSize(state){
             return {
@@ -75,11 +105,17 @@ const store = new Vuex.Store({
                 height : state.mapH
             }
         },
+        getStartTime(state){
+            return state.startTime
+        },
+        getEndTime(state){
+            return state.endTime
+        },
         getTableData1(state){
-            return state.tableData1
+            return state.engineData
         },
         getTableData2(state){
-            return state.tableData2
+            return state.stopData
         },
         getTableSizeTop(state){
             return state.tableSizeTop

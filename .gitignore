@@ -3,7 +3,6 @@
 *.iml
 out
 gen
-.gitignore
 .happypack/
 .idea/
 dist/

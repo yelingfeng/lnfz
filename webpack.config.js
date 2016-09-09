@@ -23,7 +23,7 @@ module.exports = {
     bundle: './src/main'
   },
   output: {
-    path: path.resolve(__dirname, './static'),
+    path: path.resolve(__dirname, './dist'),
     filename: '[hash:8].[name].js',
   },
   resolve: {
