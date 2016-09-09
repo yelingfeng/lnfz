@@ -71,7 +71,8 @@ module.exports = {
         }),
 
         new webpack.LoaderOptionsPlugin({
-            minimize: true
+            minimize: true,
+            debug: false
         }),
 
         new ExtractTextPlugin({
