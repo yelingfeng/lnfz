@@ -9,11 +9,12 @@ const alias = {
     views: path.resolve(__dirname, './src/views')
 }
 
+
 module.exports = {
-    devtool: false,
+    devtool: "#inline-source-map",
     entry: {
-        vendor: ['vue', 'vuex', 'lodash', 'echarts', 'bootstrap', 'jquery','moment'],
-        app: './src/main'
+        vendor: ['vue', 'vuex', 'lodash', 'echarts','vue-resource', 'bootstrap', 'jquery','moment','assets/lib/easyui/js/jquery.easyui.min','assets/lib/easyui/js/easyuizhCN'],
+        app: './src/main',
     },
     output: {
         path: path.resolve(__dirname, './static'),
@@ -65,9 +66,10 @@ module.exports = {
             },
             minimize: true
         }),
+
         new webpack.optimize.CommonsChunkPlugin({
-            name: "vendor",
-            minChunks: Infinity //Infinity
+            name: ["vendor"],
+            minChunks: Infinity
         }),
 
         new webpack.LoaderOptionsPlugin({

@@ -6,6 +6,7 @@ import Vuex from 'vuex'
 import API from "../api"
 import createLogger from 'vuex/logger'
 import moment from "moment"
+import _ from "lodash"
 import 'moment/locale/zh-cn';
 Vue.use(Vuex)
 const isProd = process.env.NODE_ENV === 'production'
@@ -36,13 +37,13 @@ const store = new Vuex.Store({
                 endTime : state.endTime,
             }
             API.getMapDataList(param).then((resp)=>{
-                commit('INIT_MAP',isProd ? resp.result : resp.data.result)
+                commit('INIT_MAP',resp.data.result)
             })
             API.getEnginePhoneList(param).then((resp)=>{
-                commit('INIT_ENGINE',isProd ? resp.result : resp.data.result)
+                commit('INIT_ENGINE',resp.data.result)
             })
             API.getStopPhoneList(param).then((resp)=>{
-                commit('INIT_STOP',isProd ? resp.result : resp.data.result)
+                commit('INIT_STOP',resp.data.result)
             })
         },
 
@@ -56,9 +57,8 @@ const store = new Vuex.Store({
                 page :args.pageNumber,
                 rows :args.pageSize
             }
-            console.log(param);
             API.getInfoList(param).then((resp) => {
-                commit('UPDATE_INFO_DATA',isProd ? resp.result : resp.data.result)
+                commit('UPDATE_INFO_DATA',isProd ? resp.data : resp.data.result)
             })
         },
 
@@ -126,10 +126,10 @@ const store = new Vuex.Store({
         getEndTime(state){
             return state.endTime
         },
-        getTableData1(state){
+        getEngineData(state){
             return state.engineData
         },
-        getTableData2(state){
+        getStopData(state){
             return state.stopData
         },
         getTableSizeTop(state){

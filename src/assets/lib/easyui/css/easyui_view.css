@@ -6,9 +6,11 @@
   -moz-border-radius: 0 0 0 0;
   -webkit-border-radius: 0 0 0 0;
   border-radius: 0 0 0 0;
-  -webkit-box-shadow:0 0 3px rgba(56, 152, 228, .5);  
-  -moz-box-shadow:0 0 3px rgba(56, 152, 228, .5);  
-  box-shadow:0 0 3px rgba(56, 152, 228, .5);  
+  /* -webkit-box-shadow: 0 0 8px rgba(20, 200, 235, .2); */
+  /* -moz-box-shadow: 0 0 8px rgba(20, 200, 235, .2); */
+  /* box-shadow: 0 0 1px rgba(20, 200, 235, .2), 0 0 8px rgba(20, 200, 235, .5), 0 0 2px rgba(20, 200, 235, .2),0 0 8px rgba(20, 200, 235, .5); */
+  background-color: rgb(6,41,89);
+  /* box-shadow: 0 1px 0px rgba(20, 200, 235, 0), 0 1px 15px rgba(20, 200, 235, .4), 0 0 5px rgba(20, 200, 235, .5), 0 1px 1px rgba(20, 200, 235, .1); */
 }
 .panel-header,
 .panel-body {
@@ -112,7 +114,7 @@
 }
 .panel-header,
 .panel-body {
-  border-color: #144161;
+  border-color: rgba(40,154,183,0.4);
 }
 .panel-header {
   background-color: #E0ECFF;
@@ -127,9 +129,8 @@
   /*background-color: #ffffff;
   color: #000000;
   */
-  background-color: rgba(12,32,51,.7);
-  
-  color:#fff;
+  background-color: rgba(21,67,122,0.2);
+  color: #fff;
   font-size: 12px;
 }
 .panel-title {
@@ -1219,6 +1220,8 @@
 .datagrid-view {
   position: relative;
   overflow: hidden;
+  margin-left: -1px;
+  margin-top: -1px;
 }
 .datagrid-view1,
 .datagrid-view2 {
@@ -1255,6 +1258,7 @@
 }
 .datagrid-sort-icon {
   padding: 0;
+  display: none;
 }
 .datagrid-toolbar {
   height: auto;
@@ -1283,6 +1287,7 @@
   cursor: default;
   border-width: 0 0 1px 0;
   border-style: solid;
+  background: #026194;
 }
 .datagrid-header-inner {
   float: left;
@@ -1298,15 +1303,17 @@
 	background-color:rgba(255,255,255,.0);
 }
 .datagrid-row:nth-of-type(even){
-	background-color:rgba(9,24,36,.8);
+	/*background-color:rgba(9,24,36,.8);*/
 }
 .datagrid-header td,
 .datagrid-body td,
 .datagrid-footer td {
-  border-width: 0 1px 1px 0;
+  border-width: 0 0px 1px 1px;
   border-style: solid;
   margin: 0;
   padding: 0;
+  height: 29px;
+  line-height: 29px;
 }
 .datagrid-cell,
 .datagrid-cell-group,
@@ -1317,8 +1324,6 @@
   white-space: nowrap;
   word-wrap: normal;
   overflow: hidden;
-  height: 18px;
-  line-height: 18px;
   font-size: 12px;
 }
 .datagrid-header .datagrid-cell {
@@ -1342,6 +1347,7 @@
   padding: 0;
   overflow: auto;
   zoom: 1;
+  background-color: rgb(6,41,89);
 }
 .datagrid-view1 .datagrid-body-inner {
   padding-bottom: 20px;
@@ -1436,7 +1442,7 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#F9F9F9,endColorstr=#efefef,GradientType=0);
   */
   /*background-color:rgba(9,44,82,.5);*/
-  background:url('../images/header_bg.png') repeat-x;
+  background: #026194;
 }
 .datagrid-td-rownumber{
 
@@ -1461,20 +1467,21 @@
 .datagrid-toolbar,
 .datagrid-pager,
 .datagrid-footer-inner {
-  border-color: #1b2f40;
+  border-bottom: 1px solid rgba(233,242,252,.2);
+  border-top: 1px solid rgba(233,242,252,.2);
+  margin-top: 1px;
 }
 .datagrid-header td,
 .datagrid-body td,
 .datagrid-footer td {
-  border-color: #122b45;
-  vertical-align:middle;
+  border-color: rgba(40,154,183,0.4);
+  vertical-align: middle;
 }
 .datagrid-htable,
 .datagrid-btable,
 .datagrid-ftable {
   /*color: #000000;*/
   color:#fff;
-  border-collapse: separate;
 }
 
 .datagrid-body tr:nth-child(even){
@@ -1484,9 +1491,7 @@
   background: #fafafa;
 }
 .datagrid-header td.datagrid-header-over {
-  background: #06213b;
-  color: #fff;
-  cursor: default;
+
 }
 .datagrid-body .datagrid-row-over{
 	background-color: rgba(24,45,61,.8);
@@ -1642,6 +1647,7 @@
   border-left: 1px solid #ccc;
   border-right: 1px solid #fff;
   margin: 3px 1px;
+  display: none;
 }
 .pagination .pagination-num {
   border-width: 1px;
@@ -1658,6 +1664,7 @@
   height: auto;
   border-width: 1px;
   border-style: solid;
+  display:none;
 }
 .pagination-info {
   float: right;
@@ -1695,7 +1702,10 @@
 }
 .pagination-page-list,
 .pagination .pagination-num {
-  border-color: #95B8E7;
+  border-color: rgba(149,184,231,.3);
+  background-color: rgba(255,255,255,.0);
+  color: rgba(255,255,255,.8);
+  text-align: center;
 }
 .calendar {
   border-width: 1px;

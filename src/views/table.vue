@@ -12,8 +12,8 @@
                     <tbody>
                         <tr v-for="(item,index) in datas">
                             <td width="25px"><i>{{index+1}}</i></td>
-                            <td width="50%" style="text-align:left;">{{item.number}}</td>
-                            <td width="150px" style="text-align:center;">{{item.time}}</td>
+                            <td style="text-align:left;">{{item.number}}</td>
+                            <td style="text-align:center;">{{item.time}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -38,6 +38,8 @@ export default {
     },
     methods:{
         tableInit(){
+
+            this.stopRun();
 
             this.speedNum = 2000;
             this.wapperBox = $(".monitor-inner",this.$el);

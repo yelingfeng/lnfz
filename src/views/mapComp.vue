@@ -20,6 +20,9 @@ export default  {
         mapData:{
             deep:true,
             handler(val,oldval){
+                if(this.mapData == undefined ){
+                    this.mapData = [];
+                }
                 this.lnMap.render(this.mapData)
             }
         }

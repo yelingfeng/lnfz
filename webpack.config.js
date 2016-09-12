@@ -19,7 +19,7 @@ const alias =  {
 module.exports = {
   devtool: '#source-map',
   entry: {
-    vendor: ['vue','vuex','lodash','echarts','bootstrap','jquery','moment'],
+    vendor: ['vue','vuex','lodash','echarts','vue-resource','bootstrap','jquery','moment','assets/lib/easyui/js/jquery.easyui.min','assets/lib/easyui/js/easyuizhCN'],
     bundle: './src/main'
   },
   output: {

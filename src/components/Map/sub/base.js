@@ -24,8 +24,6 @@ function setting(option, props) {
         series: [series],
         tooltip:helper.getMapTooltip()
     }
-
-    console.log(op)
     return op;
 }
 export default  {

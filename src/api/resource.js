@@ -15,7 +15,7 @@ const isProd = process.env.NODE_ENV === 'production'
 let mapUrl = API_ROOT + "getMapData";
 let engineUrl = API_ROOT +"getEnginePhone";
 let stopUrl = API_ROOT + "getStopPhone";
-let infoUrl = API_ROOT + "findPhoneReturnVoList";
+let infoUrl = API_ROOT + "findReturnVoList";
 
 // 地图
 export const getMapDataList = (options) => isProd ? Vue.http.post(mapUrl,options) : Vue.http.get(mapUrl);
@@ -23,5 +23,5 @@ export const getMapDataList = (options) => isProd ? Vue.http.post(mapUrl,options
 export const getEnginePhoneList =(options) =>isProd ? Vue.http.post(engineUrl,options) : Vue.http.get(engineUrl);
 // 已停封
 export const getStopPhoneList = (options) =>isProd ? Vue.http.post(stopUrl,options) : Vue.http.get(stopUrl);
-
+// 弹出表格接口
 export const getInfoList = (options) => isProd ? Vue.http.post(infoUrl , options) : Vue.http.get(infoUrl);

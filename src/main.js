@@ -15,14 +15,14 @@ import "foundation-datepicker/js/foundation-datepicker.min"
 import "foundation-datepicker/js/locales/foundation-datepicker.zh-CN"
 import "foundation-datepicker/css/foundation-datepicker.min.css"
 import "font-awesome/css/font-awesome.css"
-import "./assets/lib/easyui/js/jquery.easyui.min"
-import "./assets/lib/easyui/js/easyuizhCN"
 
-console.log = (function(log){
-  return function(obj){
-    log.call(console,JSON.parse(JSON.stringify(obj)));
-  }
-})(console.log);
+if(process.env.NODE_ENV !== 'production'){
+    console.log = (function(log){
+        return function(obj){
+            log.call(console,JSON.parse(JSON.stringify(obj)));
+        }
+    })(console.log);
+}
 
 new Vue({
   store,

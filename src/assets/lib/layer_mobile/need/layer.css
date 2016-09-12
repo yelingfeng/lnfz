@@ -19,7 +19,7 @@
 }
 
 .layui-m-layershade {
-    background-color: rgba(0, 0, 0, .7);
+    background-color: rgba(0, 0, 0, 0);
     pointer-events: auto
 }
 
@@ -40,9 +40,10 @@
     display: inline-block;
     text-align: left;
     font-size: 14px;
-    background: linear-gradient(to bottom,#114682,#104075,#104075);
+    /*background: linear-gradient(to bottom,#114682,#104075,#104075);*/
+    background: rgba(0,0,0,0.3);
     background-repeat: repeat;
-    box-shadow: #0d1c2e 1px 3px 3px 0px, #0d1c2e -1px 0px 3px 0px;
+    /*box-shadow: #0d1c2e 1px 3px 3px 0px, #0d1c2e -1px 0px 3px 0px;*/
     border-radius: 2px;
     pointer-events: auto;
     -webkit-overflow-scrolling: touch;
@@ -151,7 +152,7 @@
 }
 
 .layui-m-layercont {
-    padding: 50px 30px;
+    padding: 4px 2px;
     line-height: 22px;
     text-align: center
 }

@@ -8,8 +8,8 @@
                 <div class="col-md-8"></div>
                      <map-comp ></map-comp>
                 <div class="col-md-4">
-                    <table-comp :title="title1" :style="tableSizeT" isTop="1" :datas="tableData2"></table-comp>
-                    <table-comp :title="title2" :style="tableSizeB" isTop="0" :datas="tableData1"></table-comp>
+                    <table-comp :title="title1" :style="tableSizeT" isTop="1" :datas="EngineData"></table-comp>
+                    <table-comp :title="title2" :style="tableSizeB" isTop="0" :datas="StopData"></table-comp>
                 </div>
             </div>
         </div>
@@ -39,18 +39,23 @@
          layerData:{
              deep:true,
              handler(val,oldVal){
-                 if(val!=oldVal){
-                     $('#opentable').datagrid('loadData', val)
+                 let reData = {
+                     total : val.total,
+                     rows : val.rows
                  }
+                 if(val.total == 0){
+                     reData.rows = [];
+                 }
+                 $('#opentable').datagrid('loadData', reData)
              }
          }
      },
      computed:{
-         tableData1(){
-             return this.$store.getters.getTableData1;
+         EngineData(){
+             return this.$store.getters.getEngineData;
          },
-         tableData2(){
-             return this.$store.getters.getTableData2;
+         StopData(){
+             return this.$store.getters.getStopData;
          },
          tableSizeT(){
              return this.$store.getters.getTableSizeTop;
@@ -131,7 +136,6 @@
                             me.layerParam.pageNumber = pageNum
                             me.layerParam.pageSize = pageSize
                             me.$store.dispatch('INSERT_INFO_DATA',me.layerParam)
-
                         }
                     });
                 }
