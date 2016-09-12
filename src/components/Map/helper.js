@@ -37,9 +37,9 @@ function buildTooltipTmpl(subArray, city){
     if(subArray.length){
         subArray.forEach((it) => {
             if(it.type == "1"){
-                type1 += `<td width="60%" data-rel="${it.id}">${it.num }</td>` ;
+                type1 += `<td width="60%" data-rel="${it.type}" data-city="${city}">${it.num}</td>` ;
             }else if(it.type == "2"){
-                type2 += `<td width="60%" data-rel="${it.id}">${it.num}</td>` ;
+                type2 += `<td width="60%" data-rel="${it.type}" data-city="${city}">${it.num}</td>` ;
             }
         })
     }else{
@@ -99,10 +99,12 @@ export function getMapTooltip(){
 export function getMapLabelOption() {
     const labelStyle = {
         normal: {
-            show: false,
+            show: true,
             textStyle: {
-                fontSize: 12
-            }
+                fontSize: 12,
+                color : "#fff"
+            },
+
         }
     }
     return labelStyle;
@@ -120,6 +122,8 @@ export function getMapVisualMap(data) {
         max: maxMin.max,//1000,
         text: ['高', '低'],
         realtime: false,
+        left : "5%",
+        bottom:'10%',
         precision: 0,
         calculable: false,
         textStyle: {

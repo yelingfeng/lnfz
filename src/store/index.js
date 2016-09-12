@@ -15,27 +15,22 @@ const fmt = "YYYY-MM-DD hh:mm:ss";
 let now = moment(new Date()).format(fmt)
 let last = moment(now).add(-1,"d").format(fmt)
 
-
 const store = new Vuex.Store({
     plugins: plugins,
     state: {
         mapData:[],
         engineData:[],
         stopData:[],
+        layerData:{},
         startTime : last,
         endTime : now,
         mapW : '0',
         mapH : '0',
-        tableSizeTop : {
-        },
-        tableSizeBottom:{
-
-        }
+        tableSizeTop : {},
+        tableSizeBottom:{}
     },
     actions: {
-        // 初始化资源
         INIT_RESOURCE:({commit , dispatch,state}) => {
-
             let param = {
                 startTime : state.startTime,
                 endTime : state.endTime,
@@ -49,40 +44,53 @@ const store = new Vuex.Store({
             API.getStopPhoneList(param).then((resp)=>{
                 commit('INIT_STOP',isProd ? resp.result : resp.data.result)
             })
+        },
 
+        // 鎻掑叆寮瑰眰data
+        INSERT_INFO_DATA:({commit,state},args) =>{
+            let param = {
+                cityName: args.cityName,
+                type : args.type,
+                startTime : state.startTime,
+                endTime :state.endTime,
+                page :args.pageNumber,
+                rows :args.pageSize
+            }
+            console.log(param);
+            API.getInfoList(param).then((resp) => {
+                commit('UPDATE_INFO_DATA',isProd ? resp.result : resp.data.result)
+            })
         },
 
         SEARCH_ACTION:({commit,dispatch,state},payload) =>{
             commit('UPDATE_SEARCH_PARAM',payload);
             dispatch('INIT_RESOURCE')
         },
-
         RESIZE_MAP:({commit,state},{w,h}) =>{
             commit('RESIZE_MAP',{w,h})
         },
         RESIZE_TABLE:({commit,state},{size}) =>{
             commit('RESIZE_TABLE',{size})
-        },
-
+        }
     },
     mutations: {
-        // 初始化map
         INIT_MAP:(state,mapData ) => {
             state.mapData = mapData
         },
-        // 初始化已检出
         INIT_ENGINE:(state, data) =>{
            state.engineData = data;
         },
-        // 初始化已停封
         INIT_STOP :(state , data) =>{
             state.stopData = data;
         },
 
-        // 更新searchkey
         UPDATE_SEARCH_PARAM:(state, payload)=>{
             state.startTime = payload.s;
             state.endTime = payload.e;
+        },
+
+        UPDATE_INFO_DATA:(state,data) =>{
+            state.layerData = data
         },
 
         RESIZE_MAP:(state , { w, h})=> {
@@ -90,10 +98,9 @@ const store = new Vuex.Store({
             state.mapW = w ;
         },
         RESIZE_TABLE:(state , { size })=> {
-
             let sizeT = Object.assign({},size) ;
             let sizeB = Object.assign({},size) ;
-            sizeT.top = "10%";
+            sizeT.bottom = "50%";
             sizeT.right = "20px";
 
             sizeB.bottom = "20%";
@@ -130,6 +137,9 @@ const store = new Vuex.Store({
         },
         getTableSizeBottom(state){
             return state.tableSizeBottom
+        },
+        getLayerData(state){
+            return state.layerData
         }
     }
 })

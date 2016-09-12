@@ -1,7 +1,8 @@
-import {getMapDataList,getEnginePhoneList,getStopPhoneList} from "./resource"
+import {getMapDataList,getEnginePhoneList,getStopPhoneList,getInfoList} from "./resource"
 
 export default {
     getMapDataList,
     getEnginePhoneList,
-    getStopPhoneList
+    getStopPhoneList,
+    getInfoList
 }

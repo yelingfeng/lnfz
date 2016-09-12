@@ -194,7 +194,7 @@ export default  {
         background-color: rgba(21,82,141,.4);
         /*background-image: none;*/
         color: #fff;
-        height:20px;
+        height:26px;
         text-indent:3px;
     }
     .x_form_text:focus,.x_area_text:focus{
