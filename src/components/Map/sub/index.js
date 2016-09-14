@@ -3,6 +3,7 @@
  */
 import base from "./base"
 import lightMap from "./lightMap"
+import chinaAttact from "./chinaAttact"
 export default  {
-    base, lightMap
+    base, lightMap,chinaAttact
 }

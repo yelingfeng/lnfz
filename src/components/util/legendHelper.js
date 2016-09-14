@@ -32,13 +32,17 @@ const LEGENDALIGN = {
  * @returns {*}
  */
 export function getLegend(data, props) {
-    let legend = {};
+    let legend = {
+        orient:'vertical'
+    };
     let lp = getLegendProps(props, ['showLegend', 'legendPositon']);
     legend.show = lp.showLegend ? lp.showLegend : false
     legend.textStyle = {
         color: config.legendColor,
         fontFamily: config.commonFontFamily
     }
+    legend.x = 'top';
+    legend.y = 'left';
 
     if (data && data.length) {
         legend.data = data;

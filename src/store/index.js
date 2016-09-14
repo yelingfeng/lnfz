@@ -10,25 +10,27 @@ import _ from "lodash"
 import 'moment/locale/zh-cn';
 Vue.use(Vuex)
 const isProd = process.env.NODE_ENV === 'production'
-let plugins = isProd ? [] : [createLogger];
+const plugins = isProd ? [] : [createLogger];
 
 const fmt = "YYYY-MM-DD hh:mm:ss";
-let now = moment(new Date()).format(fmt)
-let last = moment(now).add(-1,"d").format(fmt)
+const now = moment(new Date()).format(fmt)
+const last = moment(now).add(-1,"d").format(fmt)
 
 const store = new Vuex.Store({
     plugins: plugins,
     state: {
-        mapData:[],
+        liaoningData:[],
+        chinaData:[],
         engineData:[],
         stopData:[],
+        pieData:[],
         layerData:{},
         startTime : last,
         endTime : now,
         mapW : '0',
         mapH : '0',
-        tableSizeTop : {},
-        tableSizeBottom:{}
+        tableSize : {},
+        pieStyle:{}
     },
     actions: {
         INIT_RESOURCE:({commit , dispatch,state}) => {
@@ -36,14 +38,22 @@ const store = new Vuex.Store({
                 startTime : state.startTime,
                 endTime : state.endTime,
             }
-            API.getMapDataList(param).then((resp)=>{
-                commit('INIT_MAP',resp.data.result)
+            API.getLnDataList(param).then((resp)=>{
+                commit('INIT_LN_MAP',resp.data.result)
+            })
+
+            API.getChinaDataList(param).then((resp)=>{
+                commit('INIT_CHINA_MAP',resp.data.result)
             })
             API.getEnginePhoneList(param).then((resp)=>{
                 commit('INIT_ENGINE',resp.data.result)
             })
             API.getStopPhoneList(param).then((resp)=>{
                 commit('INIT_STOP',resp.data.result)
+            })
+
+            API.getCircleData(param).then((resp)=>{
+                commit('INIT_PIE',resp.data.result)
             })
         },
 
@@ -71,12 +81,25 @@ const store = new Vuex.Store({
         },
         RESIZE_TABLE:({commit,state},{size}) =>{
             commit('RESIZE_TABLE',{size})
-        }
+        },
+
+        RESIZE_PIE:({commit,state},{size}) =>{
+            commit('RESIZE_PIE',{size})
+        },
     },
     mutations: {
-        INIT_MAP:(state,mapData ) => {
-            state.mapData = mapData
+        INIT_LN_MAP:(state,liaoningData ) => {
+            state.liaoningData = liaoningData
         },
+
+        INIT_CHINA_MAP:(state , d) =>{
+            state.chinaData = d ;
+        },
+
+        INIT_PIE:(state , d) =>{
+            state.pieData = d ;
+        },
+
         INIT_ENGINE:(state, data) =>{
            state.engineData = data;
         },
@@ -98,21 +121,19 @@ const store = new Vuex.Store({
             state.mapW = w ;
         },
         RESIZE_TABLE:(state , { size })=> {
-            let sizeT = Object.assign({},size) ;
-            let sizeB = Object.assign({},size) ;
-            sizeT.bottom = "50%";
-            sizeT.right = "20px";
-
-            sizeB.bottom = "20%";
-            sizeB.right = "20px";
-
-            state.tableSizeTop = sizeT ;
-            state.tableSizeBottom = sizeB;
+            state.tableSize = size ;
         },
+
+        RESIZE_PIE:(state , { size })=> {
+            size.top = "20px";
+            size.right = "20px";
+            state.pieStyle = size ;
+        },
+
     },
     getters: {
-        getMapData(state){
-            return state.mapData;
+        getliaoningData(state){
+            return state.liaoningData;
         },
         getMapSize(state){
             return {
@@ -120,6 +141,13 @@ const store = new Vuex.Store({
                 height : state.mapH
             }
         },
+        getPieData(state){
+            return state.pieData
+        },
+        getChinaData(state){
+            return state.chinaData
+        },
+
         getStartTime(state){
             return state.startTime
         },
@@ -132,14 +160,14 @@ const store = new Vuex.Store({
         getStopData(state){
             return state.stopData
         },
-        getTableSizeTop(state){
-            return state.tableSizeTop
-        },
-        getTableSizeBottom(state){
-            return state.tableSizeBottom
+        getTableSize(state){
+            return state.tableSize
         },
         getLayerData(state){
             return state.layerData
+        },
+        getPieStyle(state){
+            return state.pieStyle
         }
     }
 })

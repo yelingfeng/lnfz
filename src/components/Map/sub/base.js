@@ -14,6 +14,7 @@ function setting(option, props) {
         type: 'map',
         roam: true,
         map: mapType,
+        zoom : "1.5",
         label: helper.getMapLabelOption(),
         itemStyle: helper.getMapItemOption(),
         data: data,

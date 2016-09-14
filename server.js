@@ -6,21 +6,72 @@ var express = require('express');
 
 var app = new express();
 var port = process.env.PORT || 8400;
-app.use(express.static(path.join(__dirname, 'static')));
 
 app.get("/", function(req, res) {
-    return res.sendFile(__dirname + '/static/index.html')
+    return res.send("<html><head></head><body><h1>test ApiServer</h1></body></html>")
 })
 
 app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "http://localhost:8100");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
     res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-    res.header("X-Powered-By",' 3.2.1')
     res.header("Content-Type", "application/json;charset=utf-8");
     next();
 });
 
+
+app.get("/getChinaData",(req,res)=>{
+    res.send({
+        "result": [
+            {
+                "name": "合肥",
+                "value": "1",
+                "targetName": "大连"
+            },
+            {
+                "name": "大连",
+                "value": "29",
+                "targetName": "大连"
+            },
+            {
+                "name": "未知",
+                "value": "241",
+                "targetName": "大连"
+            },
+            {
+                "name": "杭州",
+                "value": "10",
+                "targetName": "大连"
+            },
+            {
+                "name": "大连",
+                "value": "15",
+                "targetName": "沈阳"
+            },
+            {
+                "name": "未知",
+                "value": "163",
+                "targetName": "沈阳"
+            },
+            {
+                "name": "杭州",
+                "value": "18",
+                "targetName": "沈阳"
+            },
+            {
+                "name": "湛江",
+                "value": "1",
+                "targetName": "沈阳"
+            }
+        ]
+    })
+})
+
+app.get("/getCircleData",(req,res)=>{
+    res.send({
+        "result":[{"name":"仿冒公检法","value":"126"},{"name":"仿冒客服/中奖诈骗","value":"122"}]
+    })
+})
 
 app.get("/getMapData" , function(req, res){
     res.send({

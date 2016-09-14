@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --hot --port=8100",
     "build": "rimraf static && cross-env NODE_ENV=production webpack  --progress --hide-modules --config webpack.prod.config.js",
-    "apiServer" : "node server.js"
+    "api-server" : "node server.js"
   },
   "dependencies": {
     "echarts": "^3.2.2",

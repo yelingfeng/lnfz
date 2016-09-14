@@ -98,8 +98,8 @@ export default class ChartClass {
         else if (this.__chartName__ == 'pie') {
             seriesOjb = {
                 type: this.__chartName__,
-                radius: '55%',
-                center: ['50%', '50%'],
+                radius: ['60', '100'],
+                center: ['40%', '50%'],
                 roseType: 'angle',
             }
         }

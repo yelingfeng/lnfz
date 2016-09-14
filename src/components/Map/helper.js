@@ -75,6 +75,7 @@ export function getMapTooltip(){
         formatter: function (params) {
             let content = "";
             var city =  params.name;
+            if(params.data == undefined)return "无数据";
             var subArray  = params.data.subArray || [];
             if(subArray.length){
                 var tmp = buildTooltipTmpl(subArray,city);

@@ -3,9 +3,9 @@
  */
 <template>
     <div class="atable" :style="style" >
-        <div class="box_title" ><span></span>{{title}}</div>
+        <!--<div class="box_title" ><span></span>{{title}}</div>-->
         <div class="monitor box_border_box" >
-            <div class="monitor-inner" >
+            <div class="monitor-inner" :style="style2">
                 <table class="table table-condensed">
                     <thead>
                     </thead>
@@ -33,8 +33,34 @@
 export default {
     name : "table",
     props:['title',"style","datas","isTop"],
+    data(){
+        return {
+            style2:{
+                height:'160px'
+            }
+        }
+    },
     updated(){
         this.tableInit()
+    },
+    watch:{
+        datas:{
+            deep:true,
+            handler(val){
+                this.tableInit()
+            }
+        }
+    },
+    computed:{
+        style(){
+            return this.$store.getters.getTableSize;
+        },
+        style2(){
+            let size = this.$store.getters.getTableSize;
+            return {
+                height : size.height
+            }
+        }
     },
     methods:{
         tableInit(){
@@ -195,8 +221,6 @@ export default {
 </script>
 <style scoped>
     .atable{
-        position: fixed;
-        bottom: 10px;
         box-sizing: border-box;
         /*overflow:hidden;*/
     }
@@ -220,7 +244,6 @@ export default {
     }
     .monitor-inner{
         width:100%;
-        height: 160px;
         overflow: hidden;
     }
     .monitor-status{

@@ -5,11 +5,32 @@
                  <search-comp></search-comp>
             </div>
             <div class="row">
-                <div class="col-md-8"></div>
-                     <map-comp ></map-comp>
+                <div class="col-md-8">
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" v-for="(item,index) in tabItems" :class="{'active':isActived(index)}" @click="tabAction(item,index)"><a href="javascript:;">{{item.name}}</a></li>
+                        </ul>
+                        <div v-show=" tabActiveIndex === 0">
+                            <map-comp map-type="liaoning" :map-data="liaoningData"></map-comp>
+                        </div>
+                        <div v-show=" tabActiveIndex === 1">
+                            <map-comp map-type="china" :map-data="chinaData"></map-comp>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-md-4">
-                    <table-comp :title="title1" :style="tableSizeT" isTop="1" :datas="EngineData"></table-comp>
-                    <table-comp :title="title2" :style="tableSizeB" isTop="0" :datas="StopData"></table-comp>
+                    <pieComp :style="pieStyle" :pie-data="pieData"></pieComp>
+                    <div class="bottom-table" :style="bottomStyle">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" v-for="(item,index) in tabTableItems" :class="{'active':isActivedTable(index)}" @click="tabTableAction(item,index)"><a href="javascript:;">{{item.name}}</a></li>
+                        </ul>
+                        <div v-show=" tabActiveTableIndex === 0">
+                            <table-comp :title="title1"  isTop="1" :datas="EngineData"></table-comp>
+                        </div>
+                        <div v-show=" tabActiveTableIndex === 1">
+                            <table-comp :title="title2"  isTop="0" :datas="StopData"></table-comp>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -20,20 +41,56 @@
   import mapComp from "views/mapComp"
   import tableComp from "views/table"
   import searchComp from "views/search"
+  import tabs from "views/tab"
+  import pieComp from "views/pieView"
   export default {
-    name : "app",
+      name : "app",
       data(){
-          return {
-              layerParam : {
-                  pageNumber:1,
-                  pageSize : 10
+          const opData = {
+              "layerParam" : {
+                  "pageNumber":1,
+                  "pageSize" : 10
               },
-              title1 :"已检出号码",
-              title2 : "已封停号码",
-              centerStyle:{
+              "tabActiveIndex":0,
+              "tabActiveTableIndex":0,
+              "tabItems":[
+                  {
+                      "name":"辽宁",
+                      "clickAction":function(){
+                          this.tabActiveIndex = 0;
+                      }.bind(this)
+                  },
+                  {
+                      "name":"中国",
+                      "clickAction":function(){
+                          this.tabActiveIndex = 1;
+                      }.bind(this)
+                  }
+              ],
+              "tabTableItems":[
+                  {
+                      "name":"已检出号码",
+                      "clickAction":function(){
+                          this.tabActiveTableIndex = 0;
+                      }.bind(this)
+                  },
+                  {
+                      "name":"已封停号码",
+                      "clickAction":function(){
+                          this.tabActiveTableIndex = 1;
+                      }.bind(this)
+                  }
+              ],
+              "title1" :"已检出号码",
+              "title2" : "已封停号码",
+              "centerStyle":{
+
+              },
+              bottomStyle:{
 
               }
           }
+          return opData;
       },
      watch:{
          layerData:{
@@ -50,23 +107,6 @@
              }
          }
      },
-     computed:{
-         EngineData(){
-             return this.$store.getters.getEngineData;
-         },
-         StopData(){
-             return this.$store.getters.getStopData;
-         },
-         tableSizeT(){
-             return this.$store.getters.getTableSizeTop;
-         },
-         tableSizeB(){
-             return this.$store.getters.getTableSizeBottom;
-         },
-         layerData(){
-             return this.$store.getters.getLayerData;
-         }
-     },
     methods:{
         resizeWin(){
             let ww = $(window).width();
@@ -79,12 +119,21 @@
             this.centerStyle.width = ww +"px";
             this.centerStyle.height = wh +"px";
 
-            let tableH = ((wanth * 0.33) - 50)  +"px";
+
+
+            let tableH = ((wanth * 0.35 ) - 50)  +"px";
             let tableW = (ww - wantw)  +"px" ;
             let tableSize = {
                 width : tableW ,
                 height : tableH
             }
+
+            this.bottomStyle = {
+                width : tableW,
+                height : (wanth * 0.3) + 50 +"px"
+            }
+
+
 
             this.$store.dispatch('RESIZE_TABLE',{
                 size: tableSize,
@@ -94,10 +143,47 @@
                 w : wantw +'px',
                 h : wanth+ 'px'
             })
+
+            this.$store.dispatch('RESIZE_PIE',{
+                size:{
+                    width:tableW,
+                    height : (wanth / 2 - 50) +"px"
+                }
+            })
         },
 
-        openLayer(){
+
+        isActivedTable(index){
+            return index === this.tabActiveTableIndex;
+        },
+
+        isActived(index){
+            return index === this.tabActiveIndex
+        },
+        tabAction(item,index){
+            this.tabActiveIndex = index;
+            item.clickAction()
+        },
+        tabTableAction(item,index){
+            this.tabActiveTableIndex = index;
+            item.clickAction()
+        },
+
+        openLayer(type){
             let me = this;
+
+            let columnArr =  [
+                {field:'cheatedUser',title:'疑似被诈骗用户',width:"140",align:'left',sortable:true,
+                },
+                {field:'evilNumber',title:'疑似恶意号码',width:"110",align:'left',sortable:true,
+                },
+            ]
+            if(type == "1"){
+                columnArr.push({field:'allTimes',title:'通话次数',width:"130",align:'left',sortable:true })
+            }else if(type == "2"){
+                columnArr.push({field:'keyWords',title:'关键词',width:"130",align:'left',sortable:true})
+            }
+            columnArr.push({field:'stopFlag',title:'封停状态',width:"100",align:'left',sortable:true })
 
             layer.open({
                 type:1,
@@ -115,16 +201,7 @@
                         pagination : true, // 分页工具栏
                         loadMsg : '正在加载数据，请稍后...',
                         method : 'POST',
-                        columns : [ [
-                            {field:'cheatedUser',title:'疑似被诈骗用户',width:"140",align:'left',sortable:true,
-                            },
-                            {field:'evilNumber',title:'疑似恶意号码',width:"110",align:'left',sortable:true,
-                            },
-                            {field:'allTimes',title:'通话次数',width:"130",align:'left',sortable:true,
-                            },
-                            {field:'stopFlag',title:'封停状态',width:"100",align:'left',sortable:true,
-                            },
-                        ] ],
+                        columns : [columnArr],
                     });
 
                     $('#opentable').datagrid('getPager').pagination({
@@ -142,7 +219,6 @@
             });
 
 
-
         }
     },
     beforeMount (){
@@ -152,6 +228,29 @@
             $("body").css("background","transparent")
         }
     },
+     computed:{
+          EngineData(){
+              return this.$store.getters.getEngineData;
+          },
+          pieData(){
+             return this.$store.getters.getPieData;
+          },
+          StopData(){
+              return this.$store.getters.getStopData;
+          },
+          pieStyle(){
+             return this.$store.getters.getPieStyle;
+          },
+          layerData(){
+              return this.$store.getters.getLayerData;
+          },
+          liaoningData(){
+              return this.$store.getters.getliaoningData;
+          },
+          chinaData(){
+              return this.$store.getters.getChinaData
+          }
+     },
     mounted(){
       let me = this;
       $(window).resize(() => {
@@ -164,13 +263,12 @@
           if(typeId != null){
               me.layerParam.type = typeId;
               me.layerParam.cityName = cityName;
-              me.openLayer();
+              me.openLayer(typeId);
           }
-
       })
     },
     components :{
-      mapComp,tableComp,searchComp
+      mapComp,tableComp,searchComp,tabs,pieComp
     }
 }
 </script>
@@ -222,5 +320,37 @@ body {
 .datepicker th, .datepicker td{
     background: rgba(21,82,141,0.95);
 }
+
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s
+}
+.fade-enter, .fade-leave-active {
+    opacity: 0
+}
+
+.nav-tabs {
+    border:none;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+    box-shadow: inset 0px 0px 8px rgba(126, 220, 248,0.55);
+    color:#fff;
+    background-color: transparent;
+    border :none;
+}
+.nav-tabs>li>a {
+    border-radius: 0;
+}
+.nav>li>a:focus, .nav>li>a:hover{
+    background-color: transparent;
+    border-color:transparent;
+}
+
+.bottom-table{
+    position: fixed;
+    bottom: 10px;
+    right : 10px;
+}
+
 
 </style>

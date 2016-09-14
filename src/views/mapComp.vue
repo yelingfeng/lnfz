@@ -1,14 +1,15 @@
 <template>
-    <div class="mapBox" id="mapLN" :style="mapstyle"></div>
+    <div :style="mapstyle"></div>
 </template>
 <script>
 import Map from "components/Map"
 export default  {
     name : "map",
+    props:{
+        mapType:String,
+        mapData:Array
+    },
     computed: {
-        mapData(){
-            return this.$store.getters.getMapData;
-        },
         mapstyle(){
             if(this.lnMap){
                 this.lnMap.resize()
@@ -28,12 +29,18 @@ export default  {
         }
     },
     mounted(){
+        let maptype = "liaoning";
+        let sub = "base";
+        if(this.mapType == "china"){
+            maptype = "china";
+            sub = "chinaAttact";
+        }
         this.lnMap = new Map({
-            el : document.querySelector("#mapLN"),
-            sub: "base",
+            el : this.$el,
+            sub: sub,
             props: {
                 mapOption: {
-                    mapType: 'liaoning'
+                    mapType: maptype
                 }
             }
         });
