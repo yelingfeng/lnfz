@@ -1,10 +1,42 @@
 <template>
     <div id="dataTotal" :style="dtStyle">
-        <p>今日：<span v-text="dtData.todayData"></span></p>
-        <p>总计:<span v-text="dtData.totalData"></span></p>
-        <p>电信:<span v-text="dtData.Telecom"></span></p>
-        <p>联通:<span v-text="dtData.Unicom"></span></p>
-        <p>移动:<span v-text="dtData.Mobile"></span></p>
+        <div class="phoneToday">
+            <div class="phoneTodayLeft"></div>
+            <div class="phoneTodayCenter">今日预警诈骗电话：{{dtData.todayData}}（次）</div>
+            <div class="phoneTodayRight"></div>
+        </div>
+        <div class="phoneAll">
+            <div class="phoneAllLeft"></div>
+            <div class="phoneAllCenter">累计预警诈骗电话：{{dtData.totalData}}（次）</div>
+            <div class="phoneAllRight"></div>
+        </div>
+        <div class="yidong">
+            <div class="IconLeft"></div>
+            <div class="Text">移动</div>
+            <div class="IconCenter"></div>
+            <div class="Num">
+                {{dtData.Mobile}}
+            </div>
+            <div class="IconRight"></div>
+        </div>
+        <div class="dianxin">
+            <div class="IconLeft"></div>
+            <div class="Text">电信</div>
+            <div class="IconCenter"></div>
+            <div class="Num">
+                {{dtData.Telecom}}
+            </div>
+            <div class="IconRight"></div>
+        </div>
+        <div class="liantong">
+            <div class="IconLeft"></div>
+            <div class="Text">联通</div>
+            <div class="IconCenter"></div>
+            <div class="Num">
+                {{dtData.Unicom}}
+            </div>
+            <div class="IconRight"></div>
+        </div>
     </div>
 </template>
 
@@ -46,8 +78,92 @@ export default {
 }
 </script>
 <style scoped>
-#dataTotal{
-    color : #fff;
-}
+    #dataTotal{
+        font-family: "SimHei", Helvetica, sans-serif;
+    }
+    #dataTotal>div>div{
+        float:left;
+        height:36px;
+        line-height:36px;
 
+    }
+    .yidong>div,.liantong>div,.dianxin>div{
+        height:38px;
+    }
+    #dataTotal>div{
+        height:36px;
+        margin-bottom:24px;
+    }
+    .phoneToday{
+        color: #2aa4d5;
+    }
+    .phoneAll{
+        color:#f09777;
+    }
+    .yidong,.liantong,.dianxin{
+        color:#2aa4d5;
+        margin-left:10px;
+        font-size:16px;
+    }
+    .phoneTodayLeft,.phoneAllLeft{
+        width:10px;
+    }
+    .phoneTodayRight,.phoneAllRight{
+        width:24px;
+    }
+    .phoneTodayLeft{
+        background:url(../assets/images/dt/ps_03.png)
+    }
+    .phoneTodayRight{
+        background:url(../assets/images/dt/ps_05.png)
+    }
+    .phoneAllLeft{
+        background:url(../assets/images/dt/ps_08.png)
+    }
+    .phoneAllRight{
+        background:url(../assets/images/dt/ps_10.png)
+    }
+    .phoneTodayCenter{
+        padding:0 20px 0 20px;
+        background:url(../assets/images/dt/ps_04.png);
+        background-size: contain;
+    }
+    .phoneAllCenter{
+        padding:0 20px 0 20px;
+        background:url(../assets/images/dt/ps_09.png);
+        background-size: contain;
+    }
+    .IconLeft{
+        width:3px;
+        background:url(../assets/images/dt/ps_13.png);
+    }
+    .Text{
+        padding:0 20px 0 20px;
+        background:url(../assets/images/dt/ps_16.png);
+    }
+    .IconCenter{
+        width:3px;
+        background:url(../assets/images/dt/ps_15.png);
+    }
+    .Num{
+        padding:6px;
+        height:24px;
+        background:url(../assets/images/dt/ps_16.png);
+    }
+    .IconRight{
+        width:3px;
+        background:url(../assets/images/dt/ps_17.png);
+    }
+    .Num li{
+        list-style:none;
+        float:left;
+        width:18px;
+        height:24px;
+        background:rgb(65,193,237);
+        margin-right:3px;
+        font-size:20px;
+        color:#fff;
+        text-align:center;
+        line-height:24px;
+    }
 </style>

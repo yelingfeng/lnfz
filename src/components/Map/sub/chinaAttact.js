@@ -285,7 +285,7 @@ function getAttactData(data){
 function  getAttactMapSeries(data){
 
 
-    var color = '#ef732b';
+    var color = '#ed6d42';
 
     var aData = getAttactData(data);
     let seriesArr = []

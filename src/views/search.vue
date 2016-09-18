@@ -92,6 +92,7 @@ export default  {
     .search_bar{
         /*padding:5px 0;*/
         width: 100%;
+        margin-left:-16px;
         font-size: 14px;
     }
     .searchContainer{

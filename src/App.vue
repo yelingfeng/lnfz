@@ -153,20 +153,21 @@
             })
 
 
-            let topW = ((ww - mapw) /2) + "px" ;
-            let topH = (maph / 2 - 50) +"px"
+            let topW = ((ww - mapw) /2 )  ;
+            let topH = (maph / 2 )
 
             this.$store.dispatch('RESIZE_PIE',{
                 size:{
-                    width:topW,
-                    height : topH
+                    width:topW + 100+"px",
+                    height : topH + 50 +"px",
+                    right : "30%"
                 }
             })
 
             this.$store.dispatch('RESIZE_DT',{
                 size:{
-                    width:topW,
-                    height : topH
+                    width:topW +"px",
+                    height : topH + "px"
                 }
             })
 
@@ -299,7 +300,7 @@
 <style>
 body {
     font-family: "Microsoft YaHei",Helvetica, sans-serif;
-    background: url("./assets/images/bg.jpg") #0e1227 no-repeat;
+    background: url("./assets/images/bg.png") #0e1227 no-repeat;
     background-size:cover;
     width : 100%;
     height : 100%;
@@ -310,6 +311,10 @@ body {
 }
 .row {
   margin-top:10px;
+}
+
+a:hover{
+    color :#44c4f0;
 }
 .tip_table{
     border:#ccc 1px solid;
@@ -356,7 +361,7 @@ body {
     border:none;
 }
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
-    box-shadow: inset 0px 0px 8px rgba(126, 220, 248,0.55);
+    box-shadow: inset 0px 0px 8px #44c4f0;
     color:#fff;
     background-color: transparent;
     border :none;
@@ -371,7 +376,7 @@ body {
 
 .bottom-table{
     position: fixed;
-    bottom: 10px;
+    bottom: 3%;
     right : 10px;
 }
 

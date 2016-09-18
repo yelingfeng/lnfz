@@ -3,6 +3,7 @@
  */
 import base from "./base"
 import lightPie from "./lightPie"
+import fz from "./fz"
 export  default  {
-    base, lightPie
+    base, lightPie,fz
 }

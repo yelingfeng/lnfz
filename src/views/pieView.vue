@@ -31,11 +31,24 @@ export default  {
     mounted(){
         this.pieObj = new Pie({
             el : this.$el,
-            sub: 'base',
+            sub: 'fz',
         });
     }
 }
 </script>
-<style>
+<style scoped>
+.pieInner-tmp{
+
+}
+.pieInner-tmp h2{
+    color : #44c4f0 ;
+    fontSize : 24px;
+}
+
+.pieInner-tmp ul{
+
+}
+
+
 
 </style>

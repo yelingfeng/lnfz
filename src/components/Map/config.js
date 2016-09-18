@@ -10,7 +10,7 @@ export const mapBorderColor = 'rgba(126, 220, 248,0.95)';
 // border宽
 export const mapBorderWidth = 0.5;
 // 滑过颜色
-export const mapEmphasisColor = 'rgba(240,255,240,0.1)';
+export const mapEmphasisColor = '#ed6d42';
 // visualMap 滑动条的颜色
 export const visualRangeColor = "#fff";
 

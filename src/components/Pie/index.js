@@ -9,7 +9,8 @@ const _settingMethod_ = "setting"
 
 const moduleName = {
     'base': 1,
-    'lightPie': 2
+    'lightPie': 2,
+    'fz':3
 }
 
 /**

@@ -69,10 +69,10 @@ app.get("/getChinaData",(req,res)=>{
 
 app.get("/getCircleData",(req,res)=>{
     res.send({
-        "result":[{"name":"仿冒公检法","value":"126"},{"name":"仿冒客服/中奖诈骗","value":"122"}]
+        "result":[{"name":"公检法","value":"45"},{"name":"补贴","value":"34"},{"name":"军人","value":"10"},{"name":"熟人领导","value":"8"},{"name":"仿冒客服/中奖诈骗","value":"8"}]
     })
 })
-
+5
 
 app.get("/getIspData",(req,res)=>{
     res.send({

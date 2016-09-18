@@ -339,7 +339,7 @@ export default {
         display:block;
         width:15px;
         height:15px;
-        border:2px solid  #00cdfe;
+        border:2px solid #44c4f0;
         position: absolute;
         transition: all 0.2s linear 0.01s;
         z-index: 2;

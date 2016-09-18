@@ -38,7 +38,7 @@ export const commonColorList = ["#00ccff", "#00a8ff", "#00f37e", "#fbb512", "#ff
  * 地图颜色
  * @type {string[]}
  */
-export const mapRangeColorList = ["#00ccff","#00a8ff","#00f37e"];
+export const mapRangeColorList = ["#71d9ff"  ,"#519aba",   "#2d5b6f"];
 
 /**
  * 横向柱图颜色集合
