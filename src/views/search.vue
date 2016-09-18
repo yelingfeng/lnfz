@@ -19,8 +19,8 @@
                 </div>
                 <div class="searchBtn" style="left: 603px;">
                     <div class="btn_box">
-                        <div class="btns">
-                            <span @click="searchAction">查询</span>
+                        <div class="btns" @click="searchAction">
+                            <span >查询</span>
                         </div>
                     </div>
                 </div>

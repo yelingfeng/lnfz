@@ -12,9 +12,9 @@ function setting(option, props) {
     let mapType = getMapProps(props,'mapType');
     let series = {
         type: 'map',
+        top: 50,
         roam: true,
         map: mapType,
-        zoom : "1.5",
         label: helper.getMapLabelOption(),
         itemStyle: helper.getMapItemOption(),
         data: data,

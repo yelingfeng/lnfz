@@ -30,13 +30,7 @@ export default  {
     mounted(){
         this.pieObj = new Pie({
             el : this.$el,
-            inner: true,
             sub: 'base',
-            props: {
-                commonProps: {
-                    showLegend: true,
-                }
-            }
         });
     }
 }

@@ -283,6 +283,10 @@ function getAttactData(data){
 }
 
 function  getAttactMapSeries(data){
+
+
+    var color = '#ef732b';
+
     var aData = getAttactData(data);
     let seriesArr = []
     seriesArr.push({
@@ -291,9 +295,9 @@ function  getAttactMapSeries(data){
         lineStyle:{
             normal: {
                 width:1,
-                color : '#46bee9',
+                color : color,
                 opacity: 0.4,
-                //curveness: 0.2
+                curveness: 0.2
             }
         },
         smooth:true,
@@ -301,10 +305,10 @@ function  getAttactMapSeries(data){
             show: true,
             scaleSize: 1,
             period: 5,
-            color: '#fff',
+            //color: '#fff',
             symbol: 'arrow',
             symbolSize : 5,
-            shadowBlur: 10
+            shadowBlur: 5
         }
     });
 
@@ -326,7 +330,7 @@ function  getAttactMapSeries(data){
         },
         itemStyle: {
             normal: {
-                color: '#46bee9'
+                color: color
             }
         },
         data:aData.pointData
@@ -358,16 +362,22 @@ function getMapRangeOption(){
 
 function setting(option, props) {
 
-    var op = {
+    let op = {
         geo: {
             map: 'china',
             roam: true,
-            label: {
-                emphasis: {
-                    show: false
+            silent: true,
+            //left: '6%',
+            top: 40,
+            itemStyle: {
+                normal: {
+                    borderWidth: 0.5,
+                    areaColor: 'transparent',
+                    borderColor: "rgba(126, 220, 248,0.95)",
+                    //shadowColor: 'rgba(255,255,255,0.9)',
+                    //shadowBlur: 2
                 }
             },
-            itemStyle:helper.getMapItemOption()
         },
         tooltip : {
             trigger: 'item',

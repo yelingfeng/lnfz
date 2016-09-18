@@ -30,7 +30,8 @@ const store = new Vuex.Store({
         mapW : '0',
         mapH : '0',
         tableSize : {},
-        pieStyle:{}
+        pieStyle:{},
+        dtStyle:{},
     },
     actions: {
         INIT_RESOURCE:({commit , dispatch,state}) => {
@@ -86,6 +87,10 @@ const store = new Vuex.Store({
         RESIZE_PIE:({commit,state},{size}) =>{
             commit('RESIZE_PIE',{size})
         },
+
+        RESIZE_DT:({commit,state},{size}) =>{
+            commit('RESIZE_DT',{size})
+        }
     },
     mutations: {
         INIT_LN_MAP:(state,liaoningData ) => {
@@ -125,10 +130,12 @@ const store = new Vuex.Store({
         },
 
         RESIZE_PIE:(state , { size })=> {
-            size.top = "20px";
-            size.right = "20px";
             state.pieStyle = size ;
         },
+
+        RESIZE_DT:(state , { size })=> {
+            state.dtStyle = size ;
+        }
 
     },
     getters: {
@@ -168,6 +175,9 @@ const store = new Vuex.Store({
         },
         getPieStyle(state){
             return state.pieStyle
+        },
+        getDtStyle(state){
+            return state.dtStyle
         }
     }
 })

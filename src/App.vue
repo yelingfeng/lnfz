@@ -5,7 +5,7 @@
                  <search-comp></search-comp>
             </div>
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <div>
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation" v-for="(item,index) in tabItems" :class="{'active':isActived(index)}" @click="tabAction(item,index)"><a href="javascript:;">{{item.name}}</a></li>
@@ -18,8 +18,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <pieComp :style="pieStyle" :pie-data="pieData"></pieComp>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <dataTotal></dataTotal>
+                        </div>
+                        <div class="col-md-6">
+                            <pieComp :style="pieStyle" :pie-data="pieData"></pieComp>
+                        </div>
+                    </div>
                     <div class="bottom-table" :style="bottomStyle">
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation" v-for="(item,index) in tabTableItems" :class="{'active':isActivedTable(index)}" @click="tabTableAction(item,index)"><a href="javascript:;">{{item.name}}</a></li>
@@ -43,6 +50,7 @@
   import searchComp from "views/search"
   import tabs from "views/tab"
   import pieComp from "views/pieView"
+  import dataTotal from "views/dataTotal"
   export default {
       name : "app",
       data(){
@@ -112,8 +120,8 @@
             let ww = $(window).width();
             let wh = $(window).height();
 
-            let wantw = ( ww * 2 / 3  ) - 10
-            let wanth = ( wh  - 50 )
+            let mapw = ( ww * 0.55  ) - 10;
+            let maph = ( wh  - 50 );
 
 
             this.centerStyle.width = ww +"px";
@@ -121,8 +129,8 @@
 
 
 
-            let tableH = ((wanth * 0.35 ) - 50)  +"px";
-            let tableW = (ww - wantw)  +"px" ;
+            let tableH = ((maph * 0.35 ) - 50)  +"px";
+            let tableW = (ww - mapw)  +"px" ;
             let tableSize = {
                 width : tableW ,
                 height : tableH
@@ -130,7 +138,7 @@
 
             this.bottomStyle = {
                 width : tableW,
-                height : (wanth * 0.3) + 50 +"px"
+                height : (maph * 0.3) + 50 +"px"
             }
 
 
@@ -140,16 +148,28 @@
             })
 
             this.$store.dispatch('RESIZE_MAP',{
-                w : wantw +'px',
-                h : wanth+ 'px'
+                w : mapw +'px',
+                h : maph+ 'px'
             })
+
+
+            let topW = ((ww - mapw) /2) + "px" ;
+            let topH = (maph / 2 - 50) +"px"
 
             this.$store.dispatch('RESIZE_PIE',{
                 size:{
-                    width:tableW,
-                    height : (wanth / 2 - 50) +"px"
+                    width:topW,
+                    height : topH
                 }
             })
+
+            this.$store.dispatch('RESIZE_DT',{
+                size:{
+                    width:topW,
+                    height : topH
+                }
+            })
+
         },
 
 
@@ -268,7 +288,7 @@
       })
     },
     components :{
-      mapComp,tableComp,searchComp,tabs,pieComp
+      mapComp,tableComp,searchComp,tabs,pieComp,dataTotal
     }
 }
 </script>
