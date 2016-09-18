@@ -158,16 +158,18 @@
 
             this.$store.dispatch('RESIZE_PIE',{
                 size:{
-                    width:topW + 100+"px",
-                    height : topH + 50 +"px",
+                    width:topW + 80+"px",
+                    height : topH + 30 +"px",
                     right : "30%"
                 }
             })
 
             this.$store.dispatch('RESIZE_DT',{
                 size:{
-                    width:topW +"px",
-                    height : topH + "px"
+                    width:topW + 100 +"px",
+                    height : (topH - 30) + "px",
+                    marginTop : "5%",
+                    marginLeft :"-5%"
                 }
             })
 
@@ -281,7 +283,7 @@
           this.resizeWin()
       })
 
-      $(document).delegate('.tip_table td','click',function(){
+      $(document).delegate('.mapTipBox .biz','click',function(){
           let typeId = $(this).attr("data-rel");
           let cityName =$(this).attr("data-city");
           if(typeId != null){
@@ -306,11 +308,9 @@ body {
     height : 100%;
     overflow: hidden;
 }
+
 #app{
     position: relative;
-}
-.row {
-  margin-top:10px;
 }
 
 a:hover{
@@ -360,6 +360,11 @@ a:hover{
 .nav-tabs {
     border:none;
 }
+
+.nav>li>a{
+    padding: 5px 10px;
+}
+
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
     box-shadow: inset 0px 0px 8px #44c4f0;
     color:#fff;
@@ -376,9 +381,61 @@ a:hover{
 
 .bottom-table{
     position: fixed;
-    bottom: 3%;
-    right : 10px;
+    bottom: 5px;
 }
 
+.mapTipBox{
+    background-color: rgba(156,48,12,0.7);
+    padding: 5px;
+    color : #fff;
+}
+.mapTipBox h2{
+    font-size: 14px;
+}
+.mapTipBox .content{
+    margin-top:5px;
+}
+.mapTipBox .biz{
+    color:#edcb42;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.mapTipBox .biz:hover{
+}
+
+.mapTipBox .sides-horn span{
+    display:block;
+    width:12px;
+    height:12px;
+    border:2px solid #f59679;
+    position: absolute;
+    transition: all 0.2s linear 0.01s;
+    z-index: 2;
+}
+.mapTipBox .sides-horn span.north-west{
+    top:1px;
+    left:1px;
+    border-right:0px;
+    border-bottom:0px;
+}
+.mapTipBox .sides-horn span.north-east{
+    top:1px;
+    right:1px;
+    border-left:0px;
+    border-bottom:0px;
+}
+.mapTipBox .sides-horn span.south-west{
+    bottom:1px;
+    left:1px;
+    border-right:0px;
+    border-top:0px;
+}
+.mapTipBox .sides-horn span.south-east{
+    bottom:1px;
+    right:1px;
+    border-left:0px;
+    border-top:0px;
+}
 
 </style>

@@ -27,37 +27,46 @@ export function getMapItemOption() {
     return itemStyle;
 }
 
+export function getMapTipBox(content){
+    let tmpl = `<div class="mapTipBox">
+                  ${content}
+                 <div class="sides-horn">
+                  <span class="north-west"></span>
+                  <span class="north-east"></span>
+                  <span class="south-west"></span>
+                  <span class="south-east"></span>
+                  </div>
+              </div>
+            `
+    return tmpl
+}
 
 
 function buildTooltipTmpl(subArray, city){
 
-    let type1 = `<td width="40%" >诈骗电话数量:</td>`;
-    let type2 = `<td width="40%" >诈骗短信数量:</td>`;
+    let type1 = `诈骗电话数量：`;
+    let type2 = `诈骗短信数量：`;
 
     if(subArray.length){
         subArray.forEach((it) => {
             if(it.type == "1"){
-                type1 += `<td width="60%" data-rel="${it.type}" data-city="${city}">${it.num}</td>` ;
+                type1 += `<span class="biz" width="60%" data-rel="${it.type}" data-city="${city}">${it.num}</span>` ;
             }else if(it.type == "2"){
-                type2 += `<td width="60%" data-rel="${it.type}" data-city="${city}">${it.num}</td>` ;
+                type2 += `<span class="biz" width="60%" data-rel="${it.type}" data-city="${city}">${it.num}</span>` ;
             }
         })
     }else{
-        type1 += `<td width="30%">0</td>` ;
-        type2 += `<td width="30%">0</td>` ;
+        type1 += `<span>0</span>` ;
+        type2 += `<span>0</span>` ;
     }
 
-    let tmpl = `<table border="1" width="270px" cellpadding="0" cellspacing="0" class="tip_table">
-                  <tr height="25px"><td colspan="2" style="color:#fff;text-align: left;font-size:16px;">【${city}】</td></tr>
-                  <tr height="25px" >
-                      ${type1}
-                  </tr>
-                  <tr height="25px" >
-                      ${type2}
-                  </tr>
-                </table>
-            `
-    return tmpl;
+    let tmpl =`<h2>[${city}]</h2>
+                  <div class="content">
+                   <p>${type1}</p>
+                   <p>${type2}</p>
+                  </div>`
+    getMapTipBox(tmpl)
+    return  getMapTipBox(tmpl);
 }
 
 
@@ -68,7 +77,7 @@ export function getMapTooltip(){
             fontSize : 12,
             align : "left"
         },
-        backgroundColor:"rgba(0,0,0,0.7)",
+        backgroundColor:"transparent",
         position:"inside",
         hideDelay:100,
         enterable:true,

@@ -44,7 +44,7 @@ function outerItemStyle(){
         normal: {
             color:commonColor,
             label: {show: false},
-            labelLine: {show: false}
+            labelLine: {show: false},
         },
         emphasis:{
             show:false
@@ -62,8 +62,6 @@ function setting(option, props) {
     groupName = nv.map((it,index) =>{
         return {
             name:it.name,
-            itemWidth:10,
-            itemHeight : 10,
             icon : cyclePath
         }
     });
@@ -83,6 +81,7 @@ function setting(option, props) {
             clockwise:false,
             hoverAnimation: false,
             startAngle: 100,
+            center:['52%','50%'],
             radius: ['60%', '75%'],
             avoidLabelOverlap:false,
             label: {
@@ -92,11 +91,12 @@ function setting(option, props) {
                         return param.percent+"%"
                     },
                     textStyle:{
-                        color : commonColor
+                        color : commonColor,
+                        fontFamily:"方正姚体",
+                        fontSize:14,
+                        fontWeight :"bold"
+
                     }
-                },
-                emphasis:{
-                    show:false
                 }
             },
             labelLine: {
@@ -117,14 +117,26 @@ function setting(option, props) {
         name:'诈骗类型',
         type:'pie',
         radius: ['80%', '80.5%'],
+        center:['52%','50%'],
         hoverAnimation: false,
         data:[
            {
                 value: 100,
                 name: 'line',
-                itemStyle:outerItemStyle()
+                itemStyle:outerItemStyle(),
             }
-        ]
+        ],
+        labelLine: {
+            normal: {
+                show: false,
+                lineStyle:{
+                    color :"transparent"
+                },
+            },
+            emphasis:{
+                show:false
+            }
+        }
     }
 
     let op = {
@@ -134,6 +146,8 @@ function setting(option, props) {
             },
             left: "36%",
             top : "32%",
+            itemWidth:12,
+            itemHeight  : 12,
             orient:"vertical",
             selectedMode:false,
             data :groupName
@@ -141,7 +155,9 @@ function setting(option, props) {
         animation: false,
         tooltip : {
             trigger: 'item',
-            formatter: "{b} :{d}%",
+            formatter: function(param){
+                return param.name.indexOf("line") == -1 ? param.name +"<br/>" + param.percent+"%"  : ""
+            },
             textStyle : {
                 fontSize :12,
                 align : "left"
