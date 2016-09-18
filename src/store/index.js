@@ -25,6 +25,7 @@ const store = new Vuex.Store({
         stopData:[],
         pieData:[],
         layerData:{},
+        dtData:{},
         startTime : last,
         endTime : now,
         mapW : '0',
@@ -55,6 +56,10 @@ const store = new Vuex.Store({
 
             API.getCircleData(param).then((resp)=>{
                 commit('INIT_PIE',resp.data.result)
+            })
+
+            API.getTotalData(param).then((resp)=>{
+                commit('INIT_DT',resp.data.result)
             })
         },
 
@@ -112,6 +117,10 @@ const store = new Vuex.Store({
             state.stopData = data;
         },
 
+        INIT_DT:(state , data)=>{
+            state.dtData = data
+        },
+
         UPDATE_SEARCH_PARAM:(state, payload)=>{
             state.startTime = payload.s;
             state.endTime = payload.e;
@@ -147,6 +156,9 @@ const store = new Vuex.Store({
                 width : state.mapW,
                 height : state.mapH
             }
+        },
+        getTotalData(state){
+            return state.dtData
         },
         getPieData(state){
             return state.pieData

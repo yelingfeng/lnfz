@@ -21,7 +21,7 @@
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-6">
-                            <dataTotal></dataTotal>
+                            <dataTotal :dt-data="dtData"></dataTotal>
                         </div>
                         <div class="col-md-6">
                             <pieComp :style="pieStyle" :pie-data="pieData"></pieComp>
@@ -251,6 +251,9 @@
      computed:{
           EngineData(){
               return this.$store.getters.getEngineData;
+          },
+          dtData(){
+              return this.$store.getters.getTotalData;
           },
           pieData(){
              return this.$store.getters.getPieData;

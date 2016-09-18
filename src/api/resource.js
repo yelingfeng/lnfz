@@ -16,7 +16,10 @@ const engineUrl = API_ROOT +"getEnginePhone";
 const stopUrl = API_ROOT + "getStopPhone";
 const infoUrl = API_ROOT + "findReturnVoList";
 const chinaUrl = API_ROOT + "getChinaData";
-const pieUrl = API_ROOT + "getCircleData"
+const pieUrl = API_ROOT + "getCircleData";
+const dataTotalUrl = API_ROOT +"getIspData";
+
+
 
 // 中国地图
 export const getChinaDataList = (options) => isProd ?Vue.http.post(chinaUrl,options) : Vue.http.get(chinaUrl);
@@ -35,3 +38,6 @@ export const getInfoList = (options) => isProd ? Vue.http.post(infoUrl , options
 
 // 饼图接口
 export const getCircleData = (options) => isProd ? Vue.http.post(pieUrl , options) : Vue.http.get(pieUrl);
+
+// 总计接口
+export const getTotalData =  (options) => isProd ? Vue.http.post(dataTotalUrl , options) : Vue.http.get(dataTotalUrl);

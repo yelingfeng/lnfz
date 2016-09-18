@@ -73,6 +73,15 @@ app.get("/getCircleData",(req,res)=>{
     })
 })
 
+
+app.get("/getIspData",(req,res)=>{
+    res.send({
+        "result":{"totalData":"222222","Telecom":"2123","todayData":"666","Unicom":"2123","Mobile":"2123"}
+    })
+})
+
+
+
 app.get("/getMapData" , function(req, res){
     res.send({
         success : true,

@@ -6,7 +6,8 @@ import Pie from "components/Pie"
 export default  {
     name : "pie",
     props:{
-        pieData:Array
+        pieData:Array,
+        pieStyle:Object
     },
     computed: {
         pieStyle(){
