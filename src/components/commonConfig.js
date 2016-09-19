@@ -26,19 +26,26 @@ export const legendColor = "#00d8f1";
 /**
  * 坐标轴label颜色码
  */
-export const axisLabelColor = "#00d8f1";
+export const axisLabelColor = "#47c9f6";
+
+/**
+ *
+ * @type {string}
+ */
+export const axisLineColor = "#1086c4";
 
 /**
  * 通用颜色集合
  */
-export const commonColorList = ["#00ccff", "#00a8ff", "#00f37e", "#fbb512", "#ff7200"];
+export const commonColorList = [
+'#47c9f6' ,  '#34b2aa' ,'#34b269' , '#b1ac34'  ,'#f4794f' ,  '#b54339' , '#2c5ba3',   '#414079'];
 
 
 /**
- * 地图颜色
+ * 地图颜色#5aaecc  #438199  #22414d
  * @type {string[]}
  */
-export const mapRangeColorList = ["#71d9ff"  ,"#519aba",   "#2d5b6f"];
+export const mapRangeColorList = ["#5aaecc"  ,"#438199",   "#22414d"];
 
 /**
  * 横向柱图颜色集合

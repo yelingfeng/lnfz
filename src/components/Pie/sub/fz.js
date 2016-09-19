@@ -12,12 +12,7 @@ const iconUrl = isProd ? API_ROOT +"images/" : API_ROOT+"src/assets/images/legen
 
 
 const commonColor = "#44c4f0"
-/**
- * 核心setting方法
- * @param option 分组处理后对象
- * @param props
- */
-//#f4794f---#b25536    #b54339--#b34039   #2c5ba3--#2b5da3 #414079--#414079
+
 function getColor(index){
     let colors =  ['#47c9f6', '#414079','#2c5ba3' ,'#f4794f','#b54339']
     let borderColor = ['#3394b7','#414079',"#2b5da3","#b25536","#b34039 "];
@@ -52,12 +47,15 @@ function outerItemStyle(){
     }
 }
 
-
+/**
+ * 核心setting方法
+ * @param option 分组处理后对象
+ * @param props
+ */
 function setting(option, props) {
 
     let groupName= [];
     let nv = _.chain(option).sortBy(function(o) { return parseFloat(o.value,10); }).reverse().value();
-
     let cyclePath = "path://M25.597,9.762c4.24,0,8.222,1.65,11.222,4.647s4.65,6.982,4.65,11.225c0,4.245-1.65,8.225-4.65,11.22    c-3,3-6.982,4.655-11.222,4.655s-8.222-1.655-11.22-4.655c-3-2.995-4.65-6.975-4.65-11.22c0-4.242,1.65-8.227,4.65-11.225    C17.375,11.412,21.36,9.762,25.597,9.762 M25.597,0.065c-14.117,0-25.565,11.45-25.565,25.57S11.48,51.2,25.597,51.2    c14.122,0,25.572-11.445,25.572-25.565S39.72,0.065,25.597,0.065L25.597,0.065z"
     groupName = nv.map((it,index) =>{
         return {

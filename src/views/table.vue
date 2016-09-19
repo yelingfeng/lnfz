@@ -13,6 +13,7 @@
                         <tr v-for="(item,index) in datas">
                             <td width="25px"><i>{{index+1}}</i></td>
                             <td style="text-align:left;">{{item.number}}</td>
+                            <td style="text-align:left;">{{item.fraudType}}</td>
                             <td style="text-align:center;">{{item.time}}</td>
                         </tr>
                     </tbody>
@@ -41,7 +42,8 @@ export default {
         }
     },
     updated(){
-        this.tableInit()
+        this.tableInit();
+        this.setContentSize()
     },
     watch:{
         datas:{
@@ -67,7 +69,7 @@ export default {
 
             this.stopRun();
 
-            this.speedNum = 2000;
+            this.speedNum = 2500;
             this.wapperBox = $(".monitor-inner",this.$el);
             this.innerTable = $(".table-condensed",this.$el);
 
@@ -106,11 +108,13 @@ export default {
             trs.each(function(){
                 var tds = $(this).children();
                 var w1 = 20;
-                var w3 =150;
-                var w2 = width - w1 - w3 -10;
+                var w4 = 150;
+                var w3 = '25%';
+                var w2 = '30%';
                 tds.eq(0).width(w1);
-                tds.eq(2).width(w3);
                 tds.eq(1).width(w2);
+                tds.eq(2).width(w3);
+                tds.eq(3).width(w4);
             })
         },
 
@@ -120,7 +124,7 @@ export default {
             var $tbody = this.innerTable.find("tbody");
             var table = this.innerTable.get(0);
             var me = this;
-
+            clearInterval(this.timer);
             this.timer = setInterval(function(){
                 var $first = $tbody.children().first();
                 var h = $first.get(0).offsetHeight;

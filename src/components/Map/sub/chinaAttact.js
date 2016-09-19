@@ -260,6 +260,12 @@ function getMakerEmptyCircleV(v,maxmin){
 
     return v;
 }
+
+function getSymbolSize(type){
+    let n = type == undefined ? "10" : type*1.5 + 5;
+    return [n,n]
+}
+
 function getAttactData(data){
     var lineData = [];
     var pointData = [];
@@ -272,7 +278,7 @@ function getAttactData(data){
                 value : row.value,
                 coords: [chinaGeoCoord[row.name], chinaGeoCoord[row.targetName]]
             });
-            pointData.push({name:row.targetName,value:chinaGeoCoord[row.targetName]})
+            pointData.push({name:row.targetName,value:chinaGeoCoord[row.targetName],symbolSize:getSymbolSize(row.lineType)})
         }
 
     });
@@ -286,7 +292,6 @@ function  getAttactMapSeries(data){
 
 
     var color = '#ed6d42';
-
     var aData = getAttactData(data);
     let seriesArr = []
     seriesArr.push({
@@ -294,18 +299,18 @@ function  getAttactMapSeries(data){
         data :aData.lineData,
         lineStyle:{
             normal: {
-                width:1,
-                color : color,
-                opacity: 0.4,
-                curveness: 0.2
+                width:1.5,
+                color : "rgba(255,255,255,0.1)",
+                opacity: 0.3,
+                curveness: 0.3
             }
         },
         smooth:true,
         effect: {
             show: true,
-            scaleSize: 1,
-            period: 5,
-            //color: '#fff',
+            scaleSize: 1.5,
+            period:5,
+            color: color,
             symbol: 'arrow',
             symbolSize : 5,
             shadowBlur: 5
@@ -316,7 +321,8 @@ function  getAttactMapSeries(data){
         type: 'effectScatter',
         coordinateSystem: 'geo',
         rippleEffect: {
-            brushType: 'stroke'
+            brushType: 'stroke',
+            scale:3
         },
         label: {
             normal: {
@@ -326,7 +332,7 @@ function  getAttactMapSeries(data){
             }
         },
         symbolSize: function (val) {
-            return  10;
+            return  [10,10];
         },
         itemStyle: {
             normal: {
@@ -363,12 +369,11 @@ function getMapRangeOption(){
 function setting(option, props) {
 
     let op = {
+
         geo: {
             map: 'china',
             roam: true,
             silent: true,
-            //left: '6%',
-            top: 40,
             itemStyle: {
                 normal: {
                     borderWidth: 0.5,
@@ -381,6 +386,7 @@ function setting(option, props) {
         },
         tooltip : {
             trigger: 'item',
+            backgroundColor:"transparent",
             formatter : function(params){
                 var data = params.data;
                 var name = params.name ;
@@ -389,7 +395,7 @@ function setting(option, props) {
                 }
                 if(data!=null){
                     var str = data.fromName +" -> "+ data.toName +"<br>" + data.value;
-                    return str;
+                    return helper.getMapTipBox(str);
                 }
                 return '';
             },

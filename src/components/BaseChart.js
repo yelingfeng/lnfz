@@ -173,13 +173,18 @@ export default class ChartClass {
                 name : g,
                 type: me.__chartName__,
                 data: seriesTemp,
-                stack: stack ? "总量" : null
+                stack: "总量" ,
+                areaStyle: {
+                    normal: {
+                        opacity:0.2
+                    }
+                },
             }
 
             if (me.__chartName__ == 'line') {
-                seriesOjb.smooth = true
+                seriesOjb.smooth = false
                 seriesOjb.symbol = 'emptyCircle'
-                seriesOjb.symbolSize = 3
+                seriesOjb.symbolSize = 4
             }
 
             series.push(seriesOjb)

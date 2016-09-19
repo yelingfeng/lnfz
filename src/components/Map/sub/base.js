@@ -6,13 +6,13 @@ import {getMapProps} from "../../propsUtil"
 import * as config from "../../commonConfig"
 import * as helper from "../helper"
 
-
 function setting(option, props) {
     let data = option.data;
     let mapType = getMapProps(props,'mapType');
     let series = {
+        //right: '5',
+        //top: '5',
         type: 'map',
-        top: 50,
         roam: true,
         map: mapType,
         label: helper.getMapLabelOption(),

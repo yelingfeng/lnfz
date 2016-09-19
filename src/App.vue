@@ -5,11 +5,12 @@
                  <search-comp></search-comp>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-7">
+                    <ul class="nav nav-tabs"  style="position: absolute; top:5%;right:10%;z-index:999;">
+                        <li role="presentation" v-for="(item,index) in tabItems" :class="{'active':isActived(index)}" @click="tabAction(item,index)"><a href="javascript:;">{{item.name}}</a></li>
+                    </ul>
                     <div>
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" v-for="(item,index) in tabItems" :class="{'active':isActived(index)}" @click="tabAction(item,index)"><a href="javascript:;">{{item.name}}</a></li>
-                        </ul>
+                        <dataTotal :dt-data="dtData"></dataTotal>
                         <div v-show=" tabActiveIndex === 0">
                             <map-comp map-type="liaoning" :map-data="liaoningData"></map-comp>
                         </div>
@@ -18,15 +19,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <dataTotal :dt-data="dtData"></dataTotal>
-                        </div>
-                        <div class="col-md-6">
-                            <pieComp :style="pieStyle" :pie-data="pieData"></pieComp>
-                        </div>
-                    </div>
+                <div class="col-md-5">
+                    <lineComp :style="lineStyle" :line-data="lineData" ></lineComp>
                     <div class="bottom-table" :style="bottomStyle">
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation" v-for="(item,index) in tabTableItems" :class="{'active':isActivedTable(index)}" @click="tabTableAction(item,index)"><a href="javascript:;">{{item.name}}</a></li>
@@ -50,6 +44,7 @@
   import searchComp from "views/search"
   import tabs from "views/tab"
   import pieComp from "views/pieView"
+  import lineComp from "views/lineComp"
   import dataTotal from "views/dataTotal"
   export default {
       name : "app",
@@ -63,13 +58,13 @@
               "tabActiveTableIndex":0,
               "tabItems":[
                   {
-                      "name":"辽宁",
+                      "name":"诈骗态势图",
                       "clickAction":function(){
                           this.tabActiveIndex = 0;
                       }.bind(this)
                   },
                   {
-                      "name":"中国",
+                      "name":"恶意号码分布",
                       "clickAction":function(){
                           this.tabActiveIndex = 1;
                       }.bind(this)
@@ -129,47 +124,42 @@
 
 
 
-            let tableH = ((maph * 0.35 ) - 50)  +"px";
-            let tableW = (ww - mapw)  +"px" ;
-            let tableSize = {
-                width : tableW ,
-                height : tableH
-            }
-
-            this.bottomStyle = {
-                width : tableW,
-                height : (maph * 0.3) + 50 +"px"
-            }
-
-
-
-            this.$store.dispatch('RESIZE_TABLE',{
-                size: tableSize,
-            })
-
             this.$store.dispatch('RESIZE_MAP',{
                 w : mapw +'px',
                 h : maph+ 'px'
             })
 
 
-            let topW = ((ww - mapw) /2 )  ;
-            let topH = (maph / 2 )
+            let topW =  ww * 0.33  ;
+            let topH = (maph / 2 ) - 30 ;
 
-            this.$store.dispatch('RESIZE_PIE',{
+            this.$store.dispatch('RESIZE_LINE',{
                 size:{
-                    width:topW + 80+"px",
-                    height : topH + 30 +"px",
-                    right : "30%"
+                    width: topW + 100 + "px",
+                    height : topH  +"px",
+                    right : "5%"
                 }
             })
+            this.bottomStyle = {
+                width: topW +"px",
+                height : topH  +"px",
+                right : "5%"
+            }
+
+            let tableSize = {
+                width : topW + 100 + "px",
+                height :((maph / 2 ) - 50 ) +"px"
+            }
+            this.$store.dispatch('RESIZE_TABLE',{
+                size: tableSize
+            })
+
 
             this.$store.dispatch('RESIZE_DT',{
                 size:{
-                    width:topW + 100 +"px",
-                    height : (topH - 30) + "px",
-                    marginTop : "5%",
-                    marginLeft :"-5%"
+                    width:"400px",
+                    height : topH +"px",
+                    left :"5%"
                 }
             })
 
@@ -264,8 +254,8 @@
           StopData(){
               return this.$store.getters.getStopData;
           },
-          pieStyle(){
-             return this.$store.getters.getPieStyle;
+          lineStyle(){
+             return this.$store.getters.getLineStyle;
           },
           layerData(){
               return this.$store.getters.getLayerData;
@@ -275,6 +265,9 @@
           },
           chinaData(){
               return this.$store.getters.getChinaData
+          },
+          lineData(){
+             return this.$store.getters.getLineData
           }
      },
     mounted(){
@@ -294,7 +287,7 @@
       })
     },
     components :{
-      mapComp,tableComp,searchComp,tabs,pieComp,dataTotal
+      mapComp,tableComp,searchComp,tabs,pieComp,dataTotal,lineComp
     }
 }
 </script>
@@ -380,8 +373,7 @@ a:hover{
 }
 
 .bottom-table{
-    position: fixed;
-    bottom: 5px;
+    position: relative;
 }
 
 .mapTipBox{

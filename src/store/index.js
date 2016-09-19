@@ -24,6 +24,7 @@ const store = new Vuex.Store({
         engineData:[],
         stopData:[],
         pieData:[],
+        lineData:[],
         layerData:{},
         dtData:{},
         startTime : last,
@@ -32,6 +33,7 @@ const store = new Vuex.Store({
         mapH : '0',
         tableSize : {},
         pieStyle:{},
+        lineStyle:{},
         dtStyle:{},
     },
     actions: {
@@ -60,6 +62,10 @@ const store = new Vuex.Store({
 
             API.getTotalData(param).then((resp)=>{
                 commit('INIT_DT',resp.data.result)
+            })
+
+            API.getLineData(param).then((resp)=>{
+                commit('INIT_LINE',resp.data.result)
             })
         },
 
@@ -95,6 +101,10 @@ const store = new Vuex.Store({
 
         RESIZE_DT:({commit,state},{size}) =>{
             commit('RESIZE_DT',{size})
+        },
+
+        RESIZE_LINE:({commit,state},{size}) =>{
+            commit('RESIZE_LINE',{size})
         }
     },
     mutations: {
@@ -108,6 +118,10 @@ const store = new Vuex.Store({
 
         INIT_PIE:(state , d) =>{
             state.pieData = d ;
+        },
+
+        INIT_LINE:(state,d)=>{
+            state.lineData = d;
         },
 
         INIT_ENGINE:(state, data) =>{
@@ -144,10 +158,17 @@ const store = new Vuex.Store({
 
         RESIZE_DT:(state , { size })=> {
             state.dtStyle = size ;
-        }
+        },
 
+        RESIZE_LINE:(state , {size})=>{
+            state.lineStyle = size
+        }
     },
     getters: {
+
+        getLineData(state){
+            return state.lineData
+        },
         getliaoningData(state){
             return state.liaoningData;
         },
@@ -190,6 +211,9 @@ const store = new Vuex.Store({
         },
         getDtStyle(state){
             return state.dtStyle
+        },
+        getLineStyle(state){
+            return state.lineStyle
         }
     }
 })

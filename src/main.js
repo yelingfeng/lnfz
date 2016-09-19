@@ -23,6 +23,10 @@ if(process.env.NODE_ENV !== 'production'){
             log.call(console,JSON.parse(JSON.stringify(obj)));
         }
     })(console.log);
+}else{
+    console.log = function(){
+
+    }
 }
 
 new Vue({

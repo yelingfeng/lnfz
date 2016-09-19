@@ -18,6 +18,7 @@ const infoUrl = API_ROOT + "findReturnVoList";
 const chinaUrl = API_ROOT + "getChinaData";
 const pieUrl = API_ROOT + "getCircleData";
 const dataTotalUrl = API_ROOT +"getIspData";
+const lineUrl = API_ROOT + "getLineData";
 
 
 
@@ -41,3 +42,6 @@ export const getCircleData = (options) => isProd ? Vue.http.post(pieUrl , option
 
 // 总计接口
 export const getTotalData =  (options) => isProd ? Vue.http.post(dataTotalUrl , options) : Vue.http.get(dataTotalUrl);
+
+// 线图接口
+export const getLineData =  (options) => isProd ? Vue.http.post(lineUrl , options) : Vue.http.get(lineUrl);
