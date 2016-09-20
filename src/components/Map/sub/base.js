@@ -16,7 +16,7 @@ function setting(option, props) {
         label: helper.getMapLabelOption(),
         itemStyle: helper.getMapItemOption(),
         data: data,
-        //markPoint : helper.getMarkPointData(data)
+        markPoint : helper.getLNPointData()
     }
     console.log(series)
     let op = {

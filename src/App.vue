@@ -22,7 +22,7 @@
                 <div class="col-md-5">
                     <lineComp :style="lineStyle" :line-data="lineData" ></lineComp>
                     <div class="bottom-table" :style="bottomStyle">
-                        <ul class="nav nav-tabs" style="position: absolute; top:20px;right:10px;z-index:999;">
+                        <ul class="nav nav-tabs" style="position: absolute; top:20px;right:5px;z-index:999;">
                             <li  v-for="(it,index) in tabTableItems" :class="{'active':isActivedTable(index)}" @click="tabTableAction(it,index)"><a href="javascript:;">{{it.name}}</a></li>
                         </ul>
                         <div class="tableBox" v-show=" tabActiveTableIndex === 0">
@@ -58,13 +58,13 @@
               "tabActiveTableIndex":0,
               "tabItems":[
                   {
-                      "name":"诈骗态势图",
+                      "name":"诈骗电话来源分布图",
                       "clickAction":function(){
                           this.tabActiveIndex = 0;
                       }.bind(this)
                   },
                   {
-                      "name":"恶意号码分布",
+                      "name":"受害用户分布图",
                       "clickAction":function(){
                           this.tabActiveIndex = 1;
                       }.bind(this)
@@ -136,21 +136,21 @@
 
             this.$store.dispatch('RESIZE_LINE',{
                 size:{
-                    width: topW +  "px",
-                    height : topH  + 50 +"px",
+                    width: topW + 20 +  "px",
+                    height : topH  + 20 +"px",
                     right :rightSize,
                     marginTop:"10px"
                 }
             })
             this.bottomStyle = {
-                width: topW +"px",
-                height : topH - 50  +"px",
-                right :rightSize,
+                width: topW + 50 +"px",
+                height : topH -30  +"px",
+                right :"20%",
             }
 
             let tableSize = {
-                width : topW +  "px",
-                height :((maph / 2 ) - 100 ) +"px" ,
+                width : topW + 50+ "px",
+                height :((maph / 2 ) - 80 ) +"px" ,
                 top:"45px"
             }
             this.$store.dispatch('RESIZE_TABLE',{
@@ -191,7 +191,7 @@
             let columnArr =  [
                 {field:'cheatedUser',title:'疑似被诈骗用户',width:"140",align:'left',sortable:true,
                 },
-                {field:'evilNumber',title:'疑似恶意号码',width:"110",align:'left',sortable:true,
+                {field:'evilNumber',title:'疑似诈骗号码',width:"110",align:'left',sortable:true,
                 },
             ]
             if(type == "1"){
@@ -376,9 +376,10 @@ a:hover{
 }
 
 .mapTipBox{
-    background-color: rgba(156,48,12,0.7);
+    background-color: rgba(28 ,61 ,77, 0.85);
+    box-shadow: inset 0px 0px 8px #6fddff ;
     padding: 5px;
-    color : #fff;
+    color : #52c6ef;
 }
 .mapTipBox h2{
     font-size: 14px;
@@ -387,7 +388,7 @@ a:hover{
     margin-top:5px;
 }
 .mapTipBox .biz{
-    color:#edcb42;
+    color:#75ffff;
     font-weight: bold;
     cursor: pointer;
 }
@@ -399,32 +400,32 @@ a:hover{
     display:block;
     width:12px;
     height:12px;
-    border:2px solid #f59679;
+    border:2px solid #6fddff ;
     position: absolute;
     transition: all 0.2s linear 0.01s;
     z-index: 2;
 }
 .mapTipBox .sides-horn span.north-west{
-    top:1px;
-    left:1px;
+    top:2px;
+    left:2px;
     border-right:0px;
     border-bottom:0px;
 }
 .mapTipBox .sides-horn span.north-east{
-    top:1px;
-    right:1px;
+    top:2px;
+    right:2px;
     border-left:0px;
     border-bottom:0px;
 }
 .mapTipBox .sides-horn span.south-west{
-    bottom:1px;
-    left:1px;
+    bottom:2px;
+    left:2px;
     border-right:0px;
     border-top:0px;
 }
 .mapTipBox .sides-horn span.south-east{
-    bottom:1px;
-    right:1px;
+    bottom:2px;
+    right:2px;
     border-left:0px;
     border-top:0px;
 }
@@ -436,6 +437,10 @@ a:hover{
 
 .tableBox{
     /*margin-top : 20px;*/
+}
+
+.table>thead>tr>th {
+    border-bottom : 0
 }
 
 </style>

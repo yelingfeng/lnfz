@@ -2,12 +2,12 @@
     <div id="dataTotal" :style="dtStyle">
         <div class="phoneToday">
             <div class="phoneTodayLeft"></div>
-            <div class="phoneTodayCenter">今日监测恶意号码：<span class="nt" v-text="dtData.todayData"></span>（次）</div>
+            <div class="phoneTodayCenter">累计监测诈骗号码：<span class="nt" v-text="dtData.totalData"></span>（次）</div>
             <div class="phoneTodayRight"></div>
         </div>
         <div class="phoneAll">
             <div class="phoneAllLeft"></div>
-            <div class="phoneAllCenter">累计监测恶意号码：<span class="nt" v-text="dtData.totalData"></span>（次）</div>
+            <div class="phoneAllCenter">今日监测诈骗号码：<span class="nt" v-text="dtData.todayData"></span>（次）</div>
             <div class="phoneAllRight"></div>
         </div>
 

@@ -182,7 +182,7 @@ export default class ChartClass {
             }
 
             if (me.__chartName__ == 'line') {
-                seriesOjb.smooth = false
+                seriesOjb.smooth = true
                 seriesOjb.symbol = 'emptyCircle'
                 seriesOjb.symbolSize = 4
             }

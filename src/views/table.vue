@@ -7,23 +7,40 @@
         <div class="monitor box_border_box" >
             <div class="monitor-inner" :style="style2">
                 <table class="table table-condensed">
-                    <thead>
+                    <thead v-if="isTop =='1'">
+                        <tr>
+                            <th >序号</th>
+                            <th >受害用户</th>
+                            <th >诈骗电话</th>
+                            <th >受害用户归属地</th>
+                            <th >通话时间</th>
+                            <th  >通话时长</th>
+                        </tr>
+                    </thead>
+                    <thead v-if="isTop =='0'">
+                        <tr>
+                            <th style="width:50px;">序号</th>
+                            <th>受害用户</th>
+                            <th >诈骗类型</th>
+                            <th >受害时间</th>
+                        </tr>
                     </thead>
                     <tbody v-if="isTop =='1'">
                         <tr v-for="(item,index) in datas">
-                            <td width="25px"><i>{{index+1}}</i></td>
-                            <td style="text-align:left;">{{item.hurtNum}}</td>
-                            <td style="text-align:left;">{{item.fraudNum}}</td>
-                            <td style="text-align:left;">{{item.userCity}}</td>
-                            <td style="text-align:left;">{{item.callTimes}}</td>
+                            <td style="text-align: right;"><i>{{index+1}}</i></td>
+                            <td >{{item.hurtNum}}</td>
+                            <td >{{item.fraudNum}}</td>
+                            <td style="text-align: right;">{{item.userCity}}</td>
+                            <td>{{item.answerTime}}</td>
+                            <td>{{item.callTimes}}</td>
                         </tr>
                     </tbody>
                     <tbody v-if="isTop =='0'">
                         <tr v-for="(item,index) in datas">
-                            <td width="25px"><i>{{index+1}}</i></td>
-                            <td style="text-align:left;">{{item.number}}</td>
-                            <td style="text-align:left;">{{item.fraudType}}</td>
-                            <td style="text-align:center;">{{item.time}}</td>
+                            <td style="text-align: right;"><i>{{index+1}}</i></td>
+                            <td>{{item.number}}</td>
+                            <td>{{item.fraudType}}</td>
+                            <td>{{item.time}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -92,51 +109,63 @@ export default {
             }
         },
         _preprocess(){
+            let me = this;
             let $table =  this.innerTable;
-            $table.wrap('<div style="height: 100%; overflow: hidden; position: relative;margin-left: 5px;"></div>');
+            $table.wrap('<div style="height: 100%; overflow: hidden; position: relative;"></div>');
+
             var $thead = $table.find("thead");
             var thHeight = $thead.height();
 
-            let $sticky = $('<table class="' + $table.attr('class') + '" style="position: absolute; top: 0;"></table>');
-            $sticky.append($thead.clone());
-            $sticky.hide();
-            $table.parent().append($sticky);
+            this.$sticky = $('<table class="' + $table.attr('class') + '" style="position: absolute; top: 0;"></table>');
+            this.$sticky.append($thead.clone());
+            $table.parent().append(this.$sticky);
+
+            $thead.css('visibility', 'hidden');
 
             let width = $table.width();
 
             // 原始table第二层wrapper
-            $table.wrap('<div style="overflow: hidden; margin-top: 10px;"></div>');
+            $table.wrap('<div style="overflow: hidden; margin-top:'+thHeight+'px;"></div>');
             $table.css('margin-top', "-" + thHeight+'px');
+
+//            $thead.find('th').each(function(i){
+//                $(this).css('width', me.$sticky.find('th').eq(i).width() + 'px');
+//            });
 
             this.setContentSize();
         },
 
         setContentSize(){
-            var width = this.innerTable.width();
-            var trs = this.innerTable.find('tr');
             var me =this;
+            var width = $(this.$el).width();
+            var trs = this.innerTable.find('tbody tr');
+
+            let w1 = 30 ;
+            let w2 = "10%";
+            let w3 = "18%";
+            let w4 = "20%";
+            let w5 =  150 ;
+            let w6 =  "10%";
+
+            let stopW2 ='35%';
+            let stopW3 ='20';
+            let stopW4 ='160';
+
+
             trs.each(function(){
                 let tds = $(this).children();
-                let w1 = 20;
                 if(me.isTop == "1"){
-
-                    let w2 = '30%';
-                    let w3 = '30%';
-                    let w4 = '20%';
-                    let w5 = '20%';
                     tds.eq(0).width(w1);
                     tds.eq(1).width(w2);
                     tds.eq(2).width(w3);
                     tds.eq(3).width(w4);
                     tds.eq(4).width(w5);
+                    tds.eq(5).width(w6);
                 }else {
-                    let w2 = '35%';
-                    let w3 = '20%';
-                    let w4 = '160';
-                    tds.eq(0).width(w1);
-                    tds.eq(1).width(w2);
-                    tds.eq(2).width(w3);
-                    tds.eq(3).width(w4);
+                    tds.eq(1).width(w1);
+                    tds.eq(1).width(stopW2);
+                    tds.eq(2).width(stopW3);
+                    tds.eq(3).width(stopW4);
                 }
             })
         },
@@ -416,6 +445,7 @@ export default {
     }
     tbody tr:first-child td i{
         background:#ef732b;
+        text-align:center;
     }
 
     .table td a img{
@@ -435,6 +465,10 @@ export default {
         /*white-space:nowrap;*/
         text-overflow:ellipsis;
         -o-text-overflow:ellipsis;
+    }
+
+    .table th{
+        text-align: center;
     }
 
 
@@ -477,22 +511,4 @@ export default {
         cursor:pointer;
     }
 
-    .table td.col1,
-    .table th.col1{
-        width:30px;
-        text-align:left;
-    }
-    .table td.col2{
-        overflow: hidden;
-        text-overflow: ellipsis;
-        /*   white-space: nowrap;*/
-    }
-    .table td.col3{
-        width : 100px;
-        text-align: left;
-    }
-    .table th.col3{
-        width : 100px;
-        text-align: center;
-    }
 </style>

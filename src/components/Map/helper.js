@@ -143,6 +143,27 @@ export function getMapVisualMap(data) {
     return visualConfig
 }
 
+export function getLNPointData(){
+    let data = [
+        {name:'鞍山市'},
+        {name:'丹东市'},
+        {name:'本溪市'},
+        {name:'抚顺市'},
+        {name:'大连市'},
+        {name:'锦州市'},
+        {name:'营口市'},
+        {name:'盘锦市'},
+        {name:'阜新市'},
+        {name:'辽阳市'},
+        {name:'沈阳市'},
+        {name:'葫芦岛市'},
+        {name:'朝阳市'},
+        {name:'铁岭市'},
+    ]
+    return getMarkPointData(data);
+}
+
+
 
 export function  getMarkPointData(data){
     const lnCoor = {
@@ -164,22 +185,21 @@ export function  getMarkPointData(data){
     let areaData = [];
     data.forEach(function(d){
         areaData.push({
-            subArray:d.subArray,
             name : d.name,
             coord : lnCoor[d.name]
         })
     })
     let markPoint = {
-        symbol: 'pin',
-        symbolSize:100,
+        symbol: 'circle',
+        symbolSize:5,
         itemStyle:{
             normal:{
-                color : "rgba(0,127,194,0.6)"
+                color : "red"
             }
         },
         label:{
             normal:{
-                show:true,
+                show:false,
                 formatter:function(d){return d.name}
             }
         },
