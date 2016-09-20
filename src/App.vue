@@ -6,11 +6,11 @@
             </div>
             <div class="row">
                 <div class="col-md-7">
-                    <ul class="nav nav-tabs"  style="position: absolute; top:5%;right:10%;z-index:999;">
-                        <li role="presentation" v-for="(item,index) in tabItems" :class="{'active':isActived(index)}" @click="tabAction(item,index)"><a href="javascript:;">{{item.name}}</a></li>
+                    <ul class="nav nav-tabs"  style="position: absolute; top:1%;right:10%;z-index:999;">
+                        <li v-for="(item,index) in tabItems" :class="{'active':isActived(index)}" @click="tabAction(item,index)"><a href="javascript:;">{{item.name}}</a></li>
                     </ul>
                     <div>
-                        <dataTotal :dt-data="dtData"></dataTotal>
+                        <dataTotal :dt-data="dtData" :cur-type="tabActiveIndex"></dataTotal>
                         <div v-show=" tabActiveIndex === 0">
                             <map-comp map-type="liaoning" :map-data="liaoningData"></map-comp>
                         </div>
@@ -22,13 +22,13 @@
                 <div class="col-md-5">
                     <lineComp :style="lineStyle" :line-data="lineData" ></lineComp>
                     <div class="bottom-table" :style="bottomStyle">
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" v-for="(item,index) in tabTableItems" :class="{'active':isActivedTable(index)}" @click="tabTableAction(item,index)"><a href="javascript:;">{{item.name}}</a></li>
+                        <ul class="nav nav-tabs" style="position: absolute; top:20px;right:10px;z-index:999;">
+                            <li  v-for="(it,index) in tabTableItems" :class="{'active':isActivedTable(index)}" @click="tabTableAction(it,index)"><a href="javascript:;">{{it.name}}</a></li>
                         </ul>
-                        <div v-show=" tabActiveTableIndex === 0">
+                        <div class="tableBox" v-show=" tabActiveTableIndex === 0">
                             <table-comp :title="title1"  isTop="1" :datas="EngineData"></table-comp>
                         </div>
-                        <div v-show=" tabActiveTableIndex === 1">
+                        <div class="tableBox" v-show=" tabActiveTableIndex === 1">
                             <table-comp :title="title2"  isTop="0" :datas="StopData"></table-comp>
                         </div>
                     </div>
@@ -115,7 +115,7 @@
             let ww = $(window).width();
             let wh = $(window).height();
 
-            let mapw = ( ww * 0.55  ) - 10;
+            let mapw = ( ww * 0.6  ) - 10;
             let maph = ( wh  - 50 );
 
 
@@ -130,25 +130,28 @@
             })
 
 
-            let topW =  ww * 0.33  ;
+            let topW =  ww * 0.44 - 10 ;
             let topH = (maph / 2 ) - 30 ;
+            let rightSize = "16%"
 
             this.$store.dispatch('RESIZE_LINE',{
                 size:{
-                    width: topW + 100 + "px",
-                    height : topH  +"px",
-                    right : "5%"
+                    width: topW +  "px",
+                    height : topH  + 50 +"px",
+                    right :rightSize,
+                    marginTop:"10px"
                 }
             })
             this.bottomStyle = {
                 width: topW +"px",
-                height : topH  +"px",
-                right : "5%"
+                height : topH - 50  +"px",
+                right :rightSize,
             }
 
             let tableSize = {
-                width : topW + 100 + "px",
-                height :((maph / 2 ) - 50 ) +"px"
+                width : topW +  "px",
+                height :((maph / 2 ) - 100 ) +"px" ,
+                top:"45px"
             }
             this.$store.dispatch('RESIZE_TABLE',{
                 size: tableSize
@@ -159,7 +162,7 @@
                 size:{
                     width:"400px",
                     height : topH +"px",
-                    left :"5%"
+                    left :"2%"
                 }
             })
 
@@ -171,7 +174,7 @@
         },
 
         isActived(index){
-            return index === this.tabActiveIndex
+            return index === this.tabActiveIndex;
         },
         tabAction(item,index){
             this.tabActiveIndex = index;
@@ -372,10 +375,6 @@ a:hover{
     border-color:transparent;
 }
 
-.bottom-table{
-    position: relative;
-}
-
 .mapTipBox{
     background-color: rgba(156,48,12,0.7);
     padding: 5px;
@@ -428,6 +427,15 @@ a:hover{
     right:1px;
     border-left:0px;
     border-top:0px;
+}
+
+
+.bottom-table{
+    position: relative;
+}
+
+.tableBox{
+    /*margin-top : 20px;*/
 }
 
 </style>

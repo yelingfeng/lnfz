@@ -10,8 +10,6 @@ function setting(option, props) {
     let data = option.data;
     let mapType = getMapProps(props,'mapType');
     let series = {
-        //right: '5',
-        //top: '5',
         type: 'map',
         roam: true,
         map: mapType,
@@ -20,6 +18,7 @@ function setting(option, props) {
         data: data,
         //markPoint : helper.getMarkPointData(data)
     }
+    console.log(series)
     let op = {
         visualMap: helper.getMapVisualMap(data),
         series: [series],

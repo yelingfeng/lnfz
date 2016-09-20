@@ -9,7 +9,16 @@
                 <table class="table table-condensed">
                     <thead>
                     </thead>
-                    <tbody>
+                    <tbody v-if="isTop =='1'">
+                        <tr v-for="(item,index) in datas">
+                            <td width="25px"><i>{{index+1}}</i></td>
+                            <td style="text-align:left;">{{item.hurtNum}}</td>
+                            <td style="text-align:left;">{{item.fraudNum}}</td>
+                            <td style="text-align:left;">{{item.userCity}}</td>
+                            <td style="text-align:left;">{{item.callTimes}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody v-if="isTop =='0'">
                         <tr v-for="(item,index) in datas">
                             <td width="25px"><i>{{index+1}}</i></td>
                             <td style="text-align:left;">{{item.number}}</td>
@@ -105,16 +114,30 @@ export default {
         setContentSize(){
             var width = this.innerTable.width();
             var trs = this.innerTable.find('tr');
+            var me =this;
             trs.each(function(){
-                var tds = $(this).children();
-                var w1 = 20;
-                var w4 = 150;
-                var w3 = '25%';
-                var w2 = '30%';
-                tds.eq(0).width(w1);
-                tds.eq(1).width(w2);
-                tds.eq(2).width(w3);
-                tds.eq(3).width(w4);
+                let tds = $(this).children();
+                let w1 = 20;
+                if(me.isTop == "1"){
+
+                    let w2 = '30%';
+                    let w3 = '30%';
+                    let w4 = '20%';
+                    let w5 = '20%';
+                    tds.eq(0).width(w1);
+                    tds.eq(1).width(w2);
+                    tds.eq(2).width(w3);
+                    tds.eq(3).width(w4);
+                    tds.eq(4).width(w5);
+                }else {
+                    let w2 = '35%';
+                    let w3 = '20%';
+                    let w4 = '160';
+                    tds.eq(0).width(w1);
+                    tds.eq(1).width(w2);
+                    tds.eq(2).width(w3);
+                    tds.eq(3).width(w4);
+                }
             })
         },
 
@@ -227,6 +250,7 @@ export default {
     .atable{
         box-sizing: border-box;
         /*overflow:hidden;*/
+        position:absolute;
     }
     .atable .monitor-status{
         position: absolute;

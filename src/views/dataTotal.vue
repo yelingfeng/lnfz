@@ -10,47 +10,78 @@
             <div class="phoneAllCenter">累计监测恶意号码：<span class="nt" v-text="dtData.totalData"></span>（次）</div>
             <div class="phoneAllRight"></div>
         </div>
-        <div class="yidong">
-            <div class="IconLeft"></div>
-            <div class="Text">省内</div>
-            <div class="IconCenter"></div>
-            <div class="Num">
-                <ul v-html="Mobile">
-                </ul>
+
+        <!--全国地图-->
+        <template v-if="curType == 1">
+            <div class="yidong">
+                <div class="IconLeft"></div>
+                <div class="Text">省内</div>
+                <div class="IconCenter"></div>
+                <div class="Num">
+                    <ul v-html="provIn">
+                    </ul>
+                </div>
+                <div class="IconRight"></div>
             </div>
-            <div class="IconRight"></div>
-        </div>
-        <div class="dianxin">
-            <div class="IconLeft"></div>
-            <div class="Text">省外</div>
-            <div class="IconCenter"></div>
-            <div class="Num">
-                <ul v-html="Unicom">
-                </ul>
+            <div class="dianxin">
+                <div class="IconLeft"></div>
+                <div class="Text">省外</div>
+                <div class="IconCenter"></div>
+                <div class="Num">
+                    <ul v-html="provOut">
+                    </ul>
+                </div>
+                <div class="IconRight"></div>
             </div>
-            <div class="IconRight"></div>
-        </div>
-        <!--<div class="liantong">-->
-            <!--<div class="IconLeft"></div>-->
-            <!--<div class="Text">联通</div>-->
-            <!--<div class="IconCenter"></div>-->
-            <!--<div class="Num">-->
-                <!--<ul v-html="Unicom">-->
-                <!--</ul>-->
-            <!--</div>-->
-            <!--<div class="IconRight"></div>-->
-        <!--</div>-->
+        </template>
+
+        <!--辽宁地图-->
+        <template v-if="curType == 0">
+            <div class="yidong">
+                <div class="IconLeft"></div>
+                <div class="Text">移动</div>
+                <div class="IconCenter"></div>
+                <div class="Num">
+                    <ul v-html="Mobile">
+                    </ul>
+                </div>
+                <div class="IconRight"></div>
+            </div>
+            <div class="dianxin">
+                <div class="IconLeft"></div>
+                <div class="Text">电信</div>
+                <div class="IconCenter"></div>
+                <div class="Num">
+                    <ul v-html="Unicom">
+                    </ul>
+                </div>
+                <div class="IconRight"></div>
+            </div>
+            <div class="liantong">
+                <div class="IconLeft"></div>
+                <div class="Text">联通</div>
+                <div class="IconCenter"></div>
+                <div class="Num">
+                    <ul v-html="Telecom">
+                    </ul>
+                </div>
+                <div class="IconRight"></div>
+            </div>
+        </template>
     </div>
 </template>
 
 <script>
 export default {
     name : 'dataTotal',
-    props:['dtData'],
+    props:['dtData','curType'],
     data(){
         return {
             Mobile : "",
             Unicom: "",
+            Telecom:"",
+            provIn:"",
+            provOut:""
         }
     },
     watch:{
@@ -60,7 +91,7 @@ export default {
                 //TODO
                 this.calNum(val)
             }
-        }
+        },
     },
     // 计算属性
     computed:{
@@ -79,9 +110,11 @@ export default {
     methods:{
         calNum:function(val){
             var that = this;
-            this.Mobile = this.setStr(val.provIn);
-            this.Unicom = this.setStr(val.provOut);
-//            this.Telecom = this.setStr(val.Telecom);
+            this.Mobile = this.setStr(val.Mobile);
+            this.Unicom = this.setStr(val.Unicom);
+            this.Telecom = this.setStr(val.Telecom);
+            this.provIn = this.setStr(val.provIn);
+            this.provOut = this.setStr(val.provOut);
         },
         setStr:function(obj){
             var str = '';
@@ -97,9 +130,8 @@ export default {
     #dataTotal{
         font-family: "SimHei", Helvetica, sans-serif;
         cursor: default;
+        top:1%;
         position: absolute;
-        left : 2%;
-        top : 2%;
     }
     #dataTotal>div>div{
         float:left;
