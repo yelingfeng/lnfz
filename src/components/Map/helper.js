@@ -109,7 +109,7 @@ export function getMapTooltip(){
 export function getMapLabelOption() {
     const labelStyle = {
         normal: {
-            show: true,
+            show: false,
             textStyle: {
                 fontSize: 12,
                 color : "#fff"
@@ -182,6 +182,25 @@ export function  getMarkPointData(data){
         "朝阳市" : [120.451176, 41.576758],
         "铁岭市" : [123.844279, 42.290585]
     }
+
+    //const lnCoor = {
+    //    "鞍山市":[122.994329,41.108647],
+    //    "丹东市":[124.1780367,40.463894],
+    //    "本溪市":[123.685142,41.486981],
+    //    "抚顺市":[123.957208,41.880872],
+    //    "大连市":[122.101620,39.521223],
+    //    "锦州市":[121.126846,41.095685],
+    //    "营口市":[122.23541,40.667012],
+    //    "盘锦市":[122.070713,41.119997],
+    //    "阜新市":[121.670323,42.021619],
+    //    "辽阳市":[123.236944,41.267244],
+    //    "沈阳市":[123.431472,41.805699],
+    //    "葫芦岛市":[120.83694,40.711041],
+    //    "朝阳市":[120.449388,41.57365],
+    //    "铁岭市":[123.726035,42.223828]
+    //}
+
+
     let areaData = [];
     data.forEach(function(d){
         areaData.push({
@@ -200,6 +219,7 @@ export function  getMarkPointData(data){
         label:{
             normal:{
                 show:false,
+                //position: 'insideBottomRight',
                 formatter:function(d){return d.name}
             }
         },

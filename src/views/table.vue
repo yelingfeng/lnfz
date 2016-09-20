@@ -9,35 +9,35 @@
                 <table class="table table-condensed">
                     <thead v-if="isTop =='1'">
                         <tr>
-                            <th >序号</th>
-                            <th >受害用户</th>
-                            <th >诈骗电话</th>
-                            <th >受害用户归属地</th>
-                            <th >通话时间</th>
-                            <th  >通话时长</th>
+                            <th class="span1">序号</th>
+                            <th class="span2">受害用户</th>
+                            <th class="span3">诈骗电话</th>
+                            <th class="span2">归属地区</th>
+                            <th class="span4">通话时间</th>
+                            <th class="span2" >通话时长</th>
                         </tr>
                     </thead>
                     <thead v-if="isTop =='0'">
                         <tr>
-                            <th style="width:50px;">序号</th>
-                            <th>受害用户</th>
-                            <th >诈骗类型</th>
-                            <th >受害时间</th>
+                            <th class="span1">序号</th>
+                            <th class="span2">诈骗用户</th>
+                            <th class="span2">诈骗类型</th>
+                            <th class="span2">封停时间</th>
                         </tr>
                     </thead>
                     <tbody v-if="isTop =='1'">
                         <tr v-for="(item,index) in datas">
-                            <td style="text-align: right;"><i>{{index+1}}</i></td>
+                            <td ><i>{{index+1}}</i></td>
                             <td >{{item.hurtNum}}</td>
                             <td >{{item.fraudNum}}</td>
-                            <td style="text-align: right;">{{item.userCity}}</td>
+                            <td >{{item.userCity}}</td>
                             <td>{{item.answerTime}}</td>
                             <td>{{item.callTimes}}</td>
                         </tr>
                     </tbody>
                     <tbody v-if="isTop =='0'">
                         <tr v-for="(item,index) in datas">
-                            <td style="text-align: right;"><i>{{index+1}}</i></td>
+                            <td ><i>{{index+1}}</i></td>
                             <td>{{item.number}}</td>
                             <td>{{item.fraudType}}</td>
                             <td>{{item.time}}</td>
@@ -69,7 +69,7 @@ export default {
     },
     updated(){
         this.tableInit();
-        this.setContentSize()
+        //this.setContentSize()
     },
     watch:{
         datas:{
@@ -116,7 +116,7 @@ export default {
             var $thead = $table.find("thead");
             var thHeight = $thead.height();
 
-            this.$sticky = $('<table class="' + $table.attr('class') + '" style="position: absolute; top: 0;"></table>');
+            this.$sticky = $('<table class="' + $table.attr('class') + '" style="position: absolute;left:8px;  top: 0;"></table>');
             this.$sticky.append($thead.clone());
             $table.parent().append(this.$sticky);
 
@@ -125,14 +125,14 @@ export default {
             let width = $table.width();
 
             // 原始table第二层wrapper
-            $table.wrap('<div style="overflow: hidden; margin-top:'+thHeight+'px;"></div>');
+            $table.wrap('<div style="overflow: hidden;margin-left:3px ;margin-top:'+thHeight+'px;"></div>');
             $table.css('margin-top', "-" + thHeight+'px');
 
 //            $thead.find('th').each(function(i){
 //                $(this).css('width', me.$sticky.find('th').eq(i).width() + 'px');
 //            });
 
-            this.setContentSize();
+            //this.setContentSize();
         },
 
         setContentSize(){
@@ -457,18 +457,14 @@ export default {
         border-top:none;
         padding: 8px;
         font-size: 12px;
-        line-height:22px;
-        text-align: center;
+        line-height:20px;
+        text-align: left;
         vertical-align: top;
         overflow-x:hidden;
         /*border-bottom: 1px solid #dddddd;*/
         /*white-space:nowrap;*/
         text-overflow:ellipsis;
         -o-text-overflow:ellipsis;
-    }
-
-    .table th{
-        text-align: center;
     }
 
 
@@ -484,22 +480,110 @@ export default {
         background-color: #ffffff;
     }
 
+    .table th {
+    }
+
+    .table thead th {
+        vertical-align: bottom;
+    }
+
+
+
     .table-condensed th,
     .table-condensed td {
         padding: 4px 4px;
     }
 
-    .table tbody tr.success > td {
-        background-color: #dff0d8;
+    table td[class*="span"],
+    table th[class*="span"]{
+        display: table-cell;
+        float: none;
+        margin-left: 0;
     }
-    .table tbody tr.error > td {
-        background-color: #f2dede;
+
+
+    .table td.span1,
+    .table th.span1 {
+        float: none;
+        width: 44px;
+        margin-left: 0;
     }
-    .table tbody tr.warning > td {
-        background-color: #fcf8e3;
+
+    .table td.span2,
+    .table th.span2 {
+        float: none;
+        width: 124px;
+        margin-left: 0;
     }
-    .table tbody tr.info > td {
-        background-color: #d9edf7;
+
+    .table td.span3,
+    .table th.span3 {
+        float: none;
+        width: 150px;
+        margin-left: 0;
+    }
+
+    .table td.span4,
+    .table th.span4 {
+        float: none;
+        width: 224px;
+        margin-left: 0;
+    }
+
+    .table td.span5,
+    .table th.span5 {
+        float: none;
+        width: 364px;
+        margin-left: 0;
+    }
+
+    .table td.span6,
+    .table th.span6 {
+        float: none;
+        width: 444px;
+        margin-left: 0;
+    }
+
+    .table td.span7,
+    .table th.span7 {
+        float: none;
+        width: 524px;
+        margin-left: 0;
+    }
+
+    .table td.span8,
+    .table th.span8 {
+        float: none;
+        width: 604px;
+        margin-left: 0;
+    }
+
+    .table td.span9,
+    .table th.span9 {
+        float: none;
+        width: 684px;
+        margin-left: 0;
+    }
+
+    .table td.span10,
+    .table th.span10 {
+        float: none;
+        width: 764px;
+        margin-left: 0;
+    }
+
+    .table td.span11,
+    .table th.span11 {
+        float: none;
+        width: 844px;
+        margin-left: 0;
+    }
+
+    .table td.span12,
+    .table th.span12 {
+        float: none;
+        width: 924px;
+        margin-left: 0;
     }
 
     .table tr {

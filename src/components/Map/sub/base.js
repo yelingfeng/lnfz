@@ -18,7 +18,6 @@ function setting(option, props) {
         data: data,
         markPoint : helper.getLNPointData()
     }
-    console.log(series)
     let op = {
         visualMap: helper.getMapVisualMap(data),
         series: [series],

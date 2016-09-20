@@ -1241,7 +1241,7 @@ app.get("/getLineData",(req,res)=>{
 
 app.get("/getIspData",(req,res)=>{
     res.send({
-       "result":{"provOut":"246","Telecom":"19","totalData":"248","provIn":"2","todayData":"0","Unicom":"24","Mobile":"6"}
+       "result":{"provOut":"246","Telecom":"19","totalData":"248","todayTimes":"0","provIn":"2","todayData":"0","Unicom":"24","Mobile":"6"}
     })
 })
 

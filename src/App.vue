@@ -6,7 +6,7 @@
             </div>
             <div class="row">
                 <div class="col-md-7">
-                    <ul class="nav nav-tabs"  style="position: absolute; top:1%;right:10%;z-index:999;">
+                    <ul class="nav nav-tabs"  style="position: absolute; top:1%;right:12%;z-index:999;">
                         <li v-for="(item,index) in tabItems" :class="{'active':isActived(index)}" @click="tabAction(item,index)"><a href="javascript:;">{{item.name}}</a></li>
                     </ul>
                     <div>
@@ -58,13 +58,13 @@
               "tabActiveTableIndex":0,
               "tabItems":[
                   {
-                      "name":"诈骗电话来源分布图",
+                      "name":"受害用户分布图",
                       "clickAction":function(){
                           this.tabActiveIndex = 0;
                       }.bind(this)
                   },
                   {
-                      "name":"受害用户分布图",
+                      "name":"诈骗电话来源分布图",
                       "clickAction":function(){
                           this.tabActiveIndex = 1;
                       }.bind(this)
@@ -132,11 +132,11 @@
 
             let topW =  ww * 0.44 - 10 ;
             let topH = (maph / 2 ) - 30 ;
-            let rightSize = "16%"
+            let rightSize = "20%"
 
             this.$store.dispatch('RESIZE_LINE',{
                 size:{
-                    width: topW + 20 +  "px",
+                    width: topW + 60 +  "px",
                     height : topH  + 20 +"px",
                     right :rightSize,
                     marginTop:"10px"
@@ -145,11 +145,11 @@
             this.bottomStyle = {
                 width: topW + 50 +"px",
                 height : topH -30  +"px",
-                right :"20%",
+                right :rightSize,
             }
 
             let tableSize = {
-                width : topW + 50+ "px",
+                width : topW + 60+ "px",
                 height :((maph / 2 ) - 80 ) +"px" ,
                 top:"45px"
             }
