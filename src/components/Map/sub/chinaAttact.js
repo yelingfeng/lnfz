@@ -290,8 +290,8 @@ function getAttactData(data){
 
 function  getAttactMapSeries(data){
 
-
-    var color = '#ed6d42';
+    //#ed6d42'
+    var color = '#a6c84c';
     var aData = getAttactData(data);
     let seriesArr = []
     seriesArr.push({
@@ -299,7 +299,7 @@ function  getAttactMapSeries(data){
         data :aData.lineData,
         lineStyle:{
             normal: {
-                width:1.5,
+                width:1,
                 color : "rgba(255,255,255,0.1)",
                 opacity: 0.3,
                 curveness: 0.3
@@ -312,7 +312,7 @@ function  getAttactMapSeries(data){
             period:5,
             color: color,
             symbol: 'arrow',
-            symbolSize : 5,
+            symbolSize : 3,
             shadowBlur: 5
         }
     });

@@ -43,12 +43,11 @@ export const commonColorList =
 
 
 
-
 /**
  * 地图颜色#5aaecc  #438199  #22414d
  * @type {string[]}
  */
-export const mapRangeColorList = [ '#bb1e1e','#db4646'  ,'#f4794f' ,'#f5b24e'  ];
+export const mapRangeColorList = [ '#bb1e1e','#db4646'  ,'#f4794f' ,'#f5b24e','#d8e041'  ,'#cbe041'];
 
 /**
  * 横向柱图颜色集合

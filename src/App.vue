@@ -6,7 +6,7 @@
             </div>
             <div class="row">
                 <div class="col-md-7">
-                    <ul class="nav nav-tabs"  style="position: absolute; top:1%;right:12%;z-index:999;">
+                    <ul class="nav nav-tabs"  style="position: absolute; top:1%;right:12%;z-index:9;">
                         <li v-for="(item,index) in tabItems" :class="{'active':isActived(index)}" @click="tabAction(item,index)"><a href="javascript:;">{{item.name}}</a></li>
                     </ul>
                     <div>
@@ -22,7 +22,7 @@
                 <div class="col-md-5">
                     <lineComp :style="lineStyle" :line-data="lineData" ></lineComp>
                     <div class="bottom-table" :style="bottomStyle">
-                        <ul class="nav nav-tabs" style="position: absolute; top:20px;right:5px;z-index:999;">
+                        <ul class="nav nav-tabs" style="position: absolute; top:20px;right:5px;z-index:9;">
                             <li  v-for="(it,index) in tabTableItems" :class="{'active':isActivedTable(index)}" @click="tabTableAction(it,index)"><a href="javascript:;">{{it.name}}</a></li>
                         </ul>
                         <div class="tableBox" v-show=" tabActiveTableIndex === 0">
@@ -162,7 +162,8 @@
                 size:{
                     width:"400px",
                     height : topH +"px",
-                    left :"2%"
+                    left :"2%",
+                    zIndex:"9"
                 }
             })
 

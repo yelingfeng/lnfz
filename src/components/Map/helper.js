@@ -111,7 +111,7 @@ export function getMapLabelOption() {
         normal: {
             show: false,
             textStyle: {
-                fontSize: 12,
+                fontSize: 10,
                 color : "#fff"
             },
 
@@ -205,24 +205,35 @@ export function  getMarkPointData(data){
     data.forEach(function(d){
         areaData.push({
             name : d.name,
-            coord : lnCoor[d.name]
+            coord : lnCoor[d.name],
+            itemStyle:{
+                normal:{
+                    color : "red"
+                }
+            },
+            label:{
+                normal:{
+                    show:true,
+                    position: ['8', '-6'],
+                    formatter:function(d){return d.name},
+                    textStyle:{
+                        color :"#fff"
+                    }
+                }
+            }
         })
     })
     let markPoint = {
         symbol: 'circle',
         symbolSize:5,
-        itemStyle:{
-            normal:{
-                color : "red"
-            }
-        },
-        label:{
-            normal:{
-                show:false,
-                //position: 'insideBottomRight',
-                formatter:function(d){return d.name}
-            }
-        },
+
+        //label:{
+        //    normal:{
+        //        show:true,
+        //        position: 'insideBottomRight',
+        //        formatter:function(d){return d.name}
+        //    }
+        //},
         data :areaData
     }
     return markPoint;
