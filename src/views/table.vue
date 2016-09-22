@@ -59,7 +59,7 @@
 
 export default {
     name : "table",
-    props:['title',"style","datas","isTop"],
+    props:['title',"style","datas","isTop","started"],
     data(){
         return {
             style2:{
@@ -72,6 +72,13 @@ export default {
         //this.setContentSize()
     },
     watch:{
+        started:{
+            handler(){
+                if(this.started){
+                    this.tableInit();
+                }
+            }
+        },
         datas:{
             deep:true,
             handler(val){

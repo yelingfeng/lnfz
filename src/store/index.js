@@ -56,9 +56,9 @@ const store = new Vuex.Store({
                 commit('INIT_STOP',resp.data.result)
             })
 
-            API.getCircleData(param).then((resp)=>{
-                commit('INIT_PIE',resp.data.result)
-            })
+            //API.getCircleData(param).then((resp)=>{
+            //    commit('INIT_PIE',resp.data.result)
+            //})
 
             API.getTotalData(param).then((resp)=>{
                 commit('INIT_DT',resp.data.result)

@@ -50,7 +50,7 @@ function buildTooltipTmpl(subArray, city){
     if(subArray.length){
         subArray.forEach((it) => {
             if(it.type == "1"){
-                type1 += `<span class="biz" width="60%" data-rel="${it.type}" data-city="${city}">${it.num}</span>` ;
+                type1 += `<span class="biz" width="60%" data-rel="${it.type}" data-city="${city}">${it.num}</span>(个)` ;
             }else if(it.type == "2"){
                 type2 += `<span class="biz" width="60%" data-rel="${it.type}" data-city="${city}">${it.num}</span>` ;
             }

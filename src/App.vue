@@ -29,7 +29,7 @@
                             <table-comp :title="title1"  isTop="1" :datas="EngineData"></table-comp>
                         </div>
                         <div class="tableBox" v-show=" tabActiveTableIndex === 1">
-                            <table-comp :title="title2"  isTop="0" :datas="StopData"></table-comp>
+                            <table-comp :title="title2"  isTop="0" :datas="StopData" :started.once="isStarted"></table-comp>
                         </div>
                     </div>
                 </div>
@@ -56,6 +56,7 @@
               },
               "tabActiveIndex":0,
               "tabActiveTableIndex":0,
+              "isStarted":false,
               "tabItems":[
                   {
                       "name":"受害用户分布图",
@@ -81,6 +82,7 @@
                       "name":"已封停号码",
                       "clickAction":function(){
                           this.tabActiveTableIndex = 1;
+                          this.isStarted = true;
                       }.bind(this)
                   }
               ],
