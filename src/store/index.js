@@ -12,7 +12,7 @@ Vue.use(Vuex)
 const isProd = process.env.NODE_ENV === 'production'
 const plugins = isProd ? [] : [createLogger];
 
-const fmt = "YYYY-MM-DD hh:mm";
+const fmt = "YYYY-MM-DD HH:mm";
 const now = moment(new Date()).format(fmt)
 const last = moment(now).add(-1,"d").format(fmt)
 
