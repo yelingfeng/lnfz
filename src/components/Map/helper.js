@@ -21,7 +21,7 @@ export function getMapItemOption() {
             label: {
                 show: false
             },
-            areaColor: config.mapEmphasisColor
+            //areaColor: config.mapEmphasisColor
         }
     }
     return itemStyle;
@@ -63,7 +63,6 @@ function buildTooltipTmpl(subArray, city){
     let tmpl =`<h2>[${city}]</h2>
                   <div class="content">
                    <p>${type1}</p>
-                   <p>${type2}</p>
                   </div>`
     getMapTipBox(tmpl)
     return  getMapTipBox(tmpl);
@@ -112,7 +111,7 @@ export function getMapLabelOption() {
             show: false,
             textStyle: {
                 fontSize: 10,
-                color : "#fff"
+                color : "#111"
             },
 
         }
@@ -208,7 +207,7 @@ export function  getMarkPointData(data){
             coord : lnCoor[d.name],
             itemStyle:{
                 normal:{
-                    color : "red"
+                    color : "#fff"
                 }
             },
             label:{
@@ -217,7 +216,8 @@ export function  getMarkPointData(data){
                     position: ['8', '-6'],
                     formatter:function(d){return d.name},
                     textStyle:{
-                        color :"#fff"
+                        color :"#fff",
+                        fontWeight:"bold"
                     }
                 }
             }
@@ -226,7 +226,6 @@ export function  getMarkPointData(data){
     let markPoint = {
         symbol: 'circle',
         symbolSize:5,
-
         //label:{
         //    normal:{
         //        show:true,

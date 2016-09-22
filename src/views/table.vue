@@ -14,7 +14,7 @@
                             <th class="span3">诈骗电话</th>
                             <th class="span2">归属地区</th>
                             <th class="span4">通话时间</th>
-                            <th class="span2" >通话时长</th>
+                            <th class="span2" >通话时长(s)</th>
                         </tr>
                     </thead>
                     <thead v-if="isTop =='0'">
@@ -128,46 +128,10 @@ export default {
             $table.wrap('<div style="overflow: hidden;margin-left:3px ;margin-top:'+thHeight+'px;"></div>');
             $table.css('margin-top', "-" + thHeight+'px');
 
-//            $thead.find('th').each(function(i){
-//                $(this).css('width', me.$sticky.find('th').eq(i).width() + 'px');
-//            });
+            $thead.find('th').each(function(i){
+                $(this).css('width', me.$sticky.find('th').eq(i).outerWidth(true) + 1 + 'px');
+            });
 
-            //this.setContentSize();
-        },
-
-        setContentSize(){
-            var me =this;
-            var width = $(this.$el).width();
-            var trs = this.innerTable.find('tbody tr');
-
-            let w1 = 30 ;
-            let w2 = "10%";
-            let w3 = "18%";
-            let w4 = "20%";
-            let w5 =  150 ;
-            let w6 =  "10%";
-
-            let stopW2 ='35%';
-            let stopW3 ='20';
-            let stopW4 ='160';
-
-
-            trs.each(function(){
-                let tds = $(this).children();
-                if(me.isTop == "1"){
-                    tds.eq(0).width(w1);
-                    tds.eq(1).width(w2);
-                    tds.eq(2).width(w3);
-                    tds.eq(3).width(w4);
-                    tds.eq(4).width(w5);
-                    tds.eq(5).width(w6);
-                }else {
-                    tds.eq(1).width(w1);
-                    tds.eq(1).width(stopW2);
-                    tds.eq(2).width(stopW3);
-                    tds.eq(3).width(stopW4);
-                }
-            })
         },
 
         startRun(){

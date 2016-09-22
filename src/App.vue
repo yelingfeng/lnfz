@@ -186,6 +186,18 @@
             item.clickAction()
         },
 
+
+        runtimeData(){
+
+            clearInterval(this.timerX);
+            let time = 60000;
+            this.timerX = setInterval(()=>{
+                this.$store.dispatch('LOAD_DT')
+            },time)
+
+        },
+
+
         openLayer(type){
             let me = this;
 
@@ -244,6 +256,7 @@
         if(process.env.NODE_ENV === 'production'){
             $("body").css("background","transparent")
         }
+
     },
      computed:{
           EngineData(){
@@ -289,6 +302,9 @@
               me.openLayer(typeId);
           }
       })
+
+      this.runtimeData()
+
     },
     components :{
       mapComp,tableComp,searchComp,tabs,pieComp,dataTotal,lineComp
@@ -377,10 +393,10 @@ a:hover{
 }
 
 .mapTipBox{
-    background-color: rgba(28 ,61 ,77, 0.85);
-    box-shadow: inset 0px 0px 8px #6fddff ;
+    background-color: #9c300c ;
+    box-shadow: inset 0px 0px 8px #dc562b   ;
     padding: 5px;
-    color : #52c6ef;
+    color : #efded8;
 }
 .mapTipBox h2{
     font-size: 14px;
@@ -389,7 +405,7 @@ a:hover{
     margin-top:5px;
 }
 .mapTipBox .biz{
-    color:#75ffff;
+    color:#f5b24e;
     font-weight: bold;
     cursor: pointer;
 }
@@ -401,7 +417,7 @@ a:hover{
     display:block;
     width:12px;
     height:12px;
-    border:2px solid #6fddff ;
+    border:2px solid #f59679 ;
     position: absolute;
     transition: all 0.2s linear 0.01s;
     z-index: 2;

@@ -394,7 +394,7 @@ function setting(option, props) {
                     return name ;
                 }
                 if(data!=null){
-                    var str = data.fromName +" -> "+ data.toName +"<br>" + data.value;
+                    var str = data.fromName +" -> "+ data.toName +"<br>" + data.value +"个";
                     return helper.getMapTipBox(str);
                 }
                 return '';

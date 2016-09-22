@@ -81,8 +81,8 @@ export default  {
             me.eT = time;
         })
 
-    $('#beginTime').css("z-index",100)
-    $('#endTime').css("z-index",100)
+        $('#beginTime').css("z-index",100)
+        $('#endTime').css("z-index",100)
 
          me.sT = this.dstartTime;
          me.eT = this.dendTime

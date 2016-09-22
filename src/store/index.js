@@ -69,6 +69,13 @@ const store = new Vuex.Store({
             })
         },
 
+        // 加载DT
+        LOAD_DT:({commit,state},args)=>{
+            API.getTotalData().then((resp)=>{
+                commit('INIT_DT',resp.data.result)
+            })
+        },
+
         // 插入弹层data
         INSERT_INFO_DATA:({commit,state},args) =>{
             let param = {

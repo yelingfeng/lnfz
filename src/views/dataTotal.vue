@@ -7,7 +7,7 @@
         </div>
         <div class="phoneAll">
             <div class="phoneAllLeft"></div>
-            <div class="phoneAllCenter">今日检测诈骗电话：<span class="nt" v-text="dtData.todayData"></span>（次）</div>
+            <div class="phoneAllCenter">今日检测诈骗电话：<span class="nt" v-text="dtData.todayData"></span>（个）</div>
             <div class="phoneAllRight"></div>
         </div>
 
@@ -52,7 +52,7 @@
                 <div class="Text">电信</div>
                 <div class="IconCenter"></div>
                 <div class="Num">
-                    <ul v-html="Unicom">
+                    <ul v-html="Telecom">
                     </ul>
                 </div>
                 <div class="IconRight"></div>
@@ -62,7 +62,7 @@
                 <div class="Text">联通</div>
                 <div class="IconCenter"></div>
                 <div class="Num">
-                    <ul v-html="Telecom">
+                    <ul v-html="Unicom">
                     </ul>
                 </div>
                 <div class="IconRight"></div>

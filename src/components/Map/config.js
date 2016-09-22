@@ -6,7 +6,7 @@
 // 区域颜色
 export const mapAreaColor = 'transparent';
 // 区域border
-export const mapBorderColor = 'rgba(126, 220, 248,0.95)';
+export const mapBorderColor = 'transparent';
 // border宽
 export const mapBorderWidth = 0.5;
 // 滑过颜色
