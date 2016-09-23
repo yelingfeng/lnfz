@@ -11,8 +11,8 @@
                         <tr>
                             <th class="span1">序号</th>
                             <th class="span2">受害用户</th>
-                            <th class="span3">诈骗电话</th>
                             <th class="span2">归属地区</th>
+                            <th class="span3">诈骗电话</th>
                             <th class="span4">通话时间</th>
                             <th class="span2" >通话时长(s)</th>
                         </tr>
@@ -29,8 +29,8 @@
                         <tr v-for="(item,index) in datas">
                             <td ><i>{{index+1}}</i></td>
                             <td >{{item.hurtNum}}</td>
-                            <td >{{item.fraudNum}}</td>
                             <td >{{item.userCity}}</td>
+                            <td >{{item.fraudNum}}</td>
                             <td>{{item.answerTime}}</td>
                             <td>{{item.callTimes}}</td>
                         </tr>
