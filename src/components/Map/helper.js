@@ -44,7 +44,7 @@ export function getMapTipBox(content){
 
 function buildTooltipTmpl(subArray, city){
 
-    let type1 = `诈骗电话数量：`;
+    let type1 = `受害用户数量：`;
     let type2 = `诈骗短信数量：`;
 
     if(subArray.length){
