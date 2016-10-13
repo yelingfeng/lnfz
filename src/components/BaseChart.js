@@ -173,12 +173,12 @@ export default class ChartClass {
                 name : g,
                 type: me.__chartName__,
                 data: seriesTemp,
-                stack: "总量" ,
-                areaStyle: {
-                    normal: {
-                        opacity:0.2
-                    }
-                },
+                // stack: "总量" ,
+                // areaStyle: {
+                //     normal: {
+                //         opacity:0.2
+                //     }
+                // },
             }
 
             if (me.__chartName__ == 'line') {

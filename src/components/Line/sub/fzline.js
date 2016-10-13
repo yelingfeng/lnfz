@@ -64,7 +64,6 @@ function setting(option, props) {
     option.xAxis[0].splitLine = {
         show : false
     }
-    console.log(option)
 
     return option;
 }

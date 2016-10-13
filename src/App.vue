@@ -6,15 +6,15 @@
             </div>
             <div class="row">
                 <div class="col-md-7">
-                    <ul class="nav nav-tabs"  style="position: absolute; top:1%;right:12%;z-index:9;">
+                    <ul class="nav nav-tabs"  style="position: absolute; top:1%;right:12%;z-index:11;">
                         <li v-for="(item,index) in tabItems" :class="{'active':isActived(index)}" @click="tabAction(item,index)"><a href="javascript:;">{{item.name}}</a></li>
                     </ul>
-                    <div>
+                    <div >
                         <dataTotal :dt-data="dtData" :cur-type="tabActiveIndex"></dataTotal>
-                        <div v-show=" tabActiveIndex === 0">
+                        <div v-show=" tabActiveIndex === 0" style="position:absolute;z-index:10">
                             <map-comp map-type="liaoning" :map-data="liaoningData"></map-comp>
                         </div>
-                        <div v-show=" tabActiveIndex === 1">
+                        <div v-show=" tabActiveIndex === 1" style="position:absolute;z-index:10">
                             <map-comp map-type="china" :map-data="chinaData"></map-comp>
                         </div>
                     </div>
@@ -165,7 +165,7 @@
                     width:"400px",
                     height : topH +"px",
                     left :"2%",
-                    zIndex:"9"
+                    zIndex:"7"
                 }
             })
 
